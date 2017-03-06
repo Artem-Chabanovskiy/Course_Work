@@ -96,3 +96,10 @@ int MainWindow::initManager(){
     ui->info_label2->setText("Менеджер");
     return 0;
 }
+
+
+
+void MainWindow::on_exit_to_log_w_clicked(){
+    QProcess::startDetached(QApplication::applicationFilePath(), QStringList(), QApplication::applicationDirPath());
+    qApp->~QApplication();
+}

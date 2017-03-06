@@ -21,6 +21,8 @@ public:
 private slots:
     void on_exit_main_button_clicked();
 
+    void on_exit_to_log_w_clicked();
+
 private:
     Ui::MainWindow *ui;
     QString login;

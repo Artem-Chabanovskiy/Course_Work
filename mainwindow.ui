@@ -85,21 +85,7 @@
      </attribute>
      <zorder>manag_w</zorder>
      <zorder>manag_w</zorder>
-     <zorder>manag_w</zorder>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="exit_main_button">
-    <property name="geometry">
-     <rect>
-      <x>460</x>
-      <y>460</y>
-      <width>93</width>
-      <height>28</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Exit</string>
-    </property>
    </widget>
    <widget class="QTabWidget" name="manag_w">
     <property name="geometry">
@@ -128,6 +114,32 @@
       <string>Закупка</string>
      </attribute>
     </widget>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>780</x>
+      <y>460</y>
+      <width>279</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="exit_to_log_w">
+       <property name="text">
+        <string>Вихід до вікна авторизації</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="exit_main_button">
+       <property name="text">
+        <string>Вихід з програми</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
