@@ -20,8 +20,14 @@ public:
 
 private slots:
     void on_exit_main_button_clicked();
-
     void on_exit_to_log_w_clicked();
+
+    int showAddContactorWindow();
+    int showInterviewWindow();
+    int showMovePositionWindow();
+    int showAddPositionWindow();
+    int showDelPositionWindow();
+    int showAddContractorToStaffWindow();
 
 private:
     Ui::MainWindow *ui;
@@ -35,6 +41,11 @@ private:
     int showLoginWindow();
     int initManager();
     int initHR();
+    int refreshHR();
+    int fillTable(QTableWidget *, QString);
+
+
+
 
 
 protected:

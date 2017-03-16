@@ -27,10 +27,28 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    loginwindow.cpp
+    loginwindow.cpp \
+    addcontractor.cpp \
+    interviewwindow.cpp \
+    moveposotionwindow.cpp \
+    addposition.cpp \
+    delposition.cpp \
+    addcontractortostaff.cpp
 
 HEADERS  += mainwindow.h \
-    loginwindow.h
+    loginwindow.h \
+    addcontractor.h \
+    interviewwindow.h \
+    moveposotionwindow.h \
+    addposition.h \
+    delposition.h \
+    addcontractortostaff.h
 
 FORMS    += mainwindow.ui \
-    loginwindow.ui
+    loginwindow.ui \
+    addcontractor.ui \
+    interviewwindow.ui \
+    moveposotionwindow.ui \
+    addposition.ui \
+    delposition.ui \
+    addcontractortostaff.ui

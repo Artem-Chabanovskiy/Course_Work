@@ -1,21 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>AddPosition</class>
- <widget name="AddPosition" class="QWidget">
+ <widget class="QWidget" name="AddPosition">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>512</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QLabel" name="info_label">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>511</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Додавання посади</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="name_position_lb">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>80</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Введіть назву посади :</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cansel_bt">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>280</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Скасувати операцію</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="add_position_bt">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>280</y>
+     <width>151</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Додати</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="position_name_edit">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>80</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="salary_position_lb">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Введіть зарлату :</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="position_salary_edit">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>140</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>200</y>
+     <width>261</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Введить кількість штатних одиниць</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="staff_complement_edit">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>200</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

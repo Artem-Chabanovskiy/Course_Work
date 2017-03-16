@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1073</width>
-    <height>572</height>
+    <width>1259</width>
+    <height>726</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QLabel" name="info_label1">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>21</y>
+      <x>20</x>
+      <y>20</y>
       <width>114</width>
       <height>20</height>
      </rect>
@@ -36,8 +36,8 @@
    <widget class="QLabel" name="info_label2">
     <property name="geometry">
      <rect>
-      <x>122</x>
-      <y>21</y>
+      <x>150</x>
+      <y>20</y>
       <width>81</width>
       <height>20</height>
      </rect>
@@ -56,44 +56,263 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>60</y>
-      <width>1051</width>
-      <height>381</height>
+      <y>50</y>
+      <width>1241</width>
+      <height>531</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="contractors">
      <attribute name="title">
       <string>Контрагенти</string>
      </attribute>
+     <widget class="QPushButton" name="interwiev_do_bt">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>420</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Провести співбесіду</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="add_contr_bt">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>420</y>
+        <width>131</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Додати контрагента</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="contactor_table">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>811</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Прізвище</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ім'я</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>По-батькові</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Дата народження</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Адреса</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ідент. код</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Номер телефону</string>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>7</pointsize>
+        </font>
+       </property>
+      </column>
+     </widget>
     </widget>
     <widget class="QWidget" name="interview">
      <attribute name="title">
-      <string>Співбесіда</string>
+      <string>Співбесіди</string>
      </attribute>
+     <widget class="QPushButton" name="addintresult_bt">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>430</y>
+        <width>171</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Додати результат</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="interview_table">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>441</width>
+        <height>401</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Прізвище</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ім'я</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>По-батькові</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Посада</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Результат</string>
+       </property>
+      </column>
+     </widget>
     </widget>
     <widget class="QWidget" name="position">
      <attribute name="title">
       <string>Посада</string>
      </attribute>
+     <widget class="QPushButton" name="positionadd_bt">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>420</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Додати посаду</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="position_table">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>131</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Назва</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="positiondel_bt_">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>420</y>
+        <width>151</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Видалити посаду</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="staff">
      <attribute name="title">
       <string>Персонал</string>
      </attribute>
-     <zorder>manag_w</zorder>
-     <zorder>manag_w</zorder>
+     <widget class="QPushButton" name="add_contr_omn_staff_bt">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>430</y>
+        <width>211</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Додати контрагента до персоналу</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="position_move_bt">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>430</y>
+        <width>211</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Перевести з посади на посаду</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="staff_table">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>241</width>
+        <height>391</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Прізвище</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ім'я</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Посада</string>
+       </property>
+      </column>
+     </widget>
     </widget>
    </widget>
    <widget class="QTabWidget" name="manag_w">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>50</y>
-      <width>941</width>
-      <height>391</height>
+      <x>1110</x>
+      <y>10</y>
+      <width>131</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -115,11 +334,11 @@
      </attribute>
     </widget>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>460</y>
+      <x>970</x>
+      <y>610</y>
       <width>279</width>
       <height>30</height>
      </rect>
@@ -141,13 +360,18 @@
      </item>
     </layout>
    </widget>
+   <zorder>manag_w</zorder>
+   <zorder>info_label1</zorder>
+   <zorder>info_label2</zorder>
+   <zorder>hr_w</zorder>
+   <zorder>layoutWidget</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1073</width>
+     <width>1259</width>
      <height>26</height>
     </rect>
    </property>

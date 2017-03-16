@@ -1,21 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>interviewwindow</class>
  <widget class="QWidget" name="interviewwindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>580</width>
+    <height>534</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QLabel" name="log_int_lb">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>521</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Введіть інформацію про співбесіду</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Виберіть контрагента</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>310</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Виберіть посаду :</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="position_combobox">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>310</y>
+     <width>251</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="add_interview_button">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>440</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Занести інформацію</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cansel_button">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>440</y>
+     <width>141</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Скасувати операцію</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="contr_to_int_table">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>90</y>
+     <width>256</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>
