@@ -38,7 +38,7 @@
      <rect>
       <x>150</x>
       <y>20</y>
-      <width>81</width>
+      <width>181</width>
       <height>20</height>
      </rect>
     </property>
@@ -62,7 +62,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="contractors">
      <attribute name="title">
@@ -172,8 +172,8 @@
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>441</width>
-        <height>401</height>
+        <width>501</width>
+        <height>411</height>
        </rect>
       </property>
       <column>
@@ -210,7 +210,7 @@
      <widget class="QPushButton" name="positionadd_bt">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>0</x>
         <y>420</y>
         <width>151</width>
         <height>51</height>
@@ -234,19 +234,6 @@
         <string>Назва</string>
        </property>
       </column>
-     </widget>
-     <widget class="QPushButton" name="positiondel_bt_">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>420</y>
-        <width>151</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Видалити посаду</string>
-      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="staff">

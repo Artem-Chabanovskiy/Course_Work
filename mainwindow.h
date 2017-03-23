@@ -26,7 +26,6 @@ private slots:
     int showInterviewWindow();
     int showMovePositionWindow();
     int showAddPositionWindow();
-    int showDelPositionWindow();
     int showAddContractorToStaffWindow();
 
 private:
@@ -35,12 +34,15 @@ private:
     QString pw;
     QString ip;
     QString port;
-    int user_type;
+    QString role;
+    //int user_type;
 
+    QString getRole();
     int connectUser();
     int showLoginWindow();
     int initManager();
     int initHR();
+    int initInspector();
     int refreshHR();
     int fillTable(QTableWidget *, QString);
 

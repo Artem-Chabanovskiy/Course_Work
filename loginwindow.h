@@ -23,7 +23,6 @@ public:
     QString getPw();
     QString getIP();
     QString getPort();
-    int getUserType();
 
     Ui::LoginWindow *ui;
 

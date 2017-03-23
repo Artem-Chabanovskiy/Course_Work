@@ -32,7 +32,6 @@ SOURCES += main.cpp\
     interviewwindow.cpp \
     moveposotionwindow.cpp \
     addposition.cpp \
-    delposition.cpp \
     addcontractortostaff.cpp
 
 HEADERS  += mainwindow.h \
@@ -41,7 +40,6 @@ HEADERS  += mainwindow.h \
     interviewwindow.h \
     moveposotionwindow.h \
     addposition.h \
-    delposition.h \
     addcontractortostaff.h
 
 FORMS    += mainwindow.ui \
@@ -50,5 +48,4 @@ FORMS    += mainwindow.ui \
     interviewwindow.ui \
     moveposotionwindow.ui \
     addposition.ui \
-    delposition.ui \
     addcontractortostaff.ui

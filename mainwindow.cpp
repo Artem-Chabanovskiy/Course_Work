@@ -6,7 +6,6 @@
 #include "interviewwindow.h"
 #include "moveposotionwindow.h"
 #include "addposition.h"
-#include "delposition.h"
 #include "addcontractortostaff.h"
 #include <QResource>
 #include <QMessageBox>
@@ -18,8 +17,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     db = QSqlDatabase::addDatabase("QPSQL");
     showLoginWindow();
-    if (user_type == 0) initHR();
-    if (user_type == 1) initManager();
+    //if (user_type == 0) initHR();
+    //if (user_type == 1) initManager();
+    role = getRole();
+    if (role == "staff_manager") initHR();
+    if (role == "inspector") initInspector();
 }
 
 MainWindow::~MainWindow() {
@@ -36,7 +38,7 @@ int MainWindow::showLoginWindow(){
             pw = d.getPw();
             ip = d.getIP();
             port = d.getPort();
-            user_type = d.getUserType();
+            //user_type = d.getUserType();
             if (connectUser()){
                 return 0;
             }
@@ -55,7 +57,15 @@ int MainWindow::showLoginWindow(){
     return 1;
 }
 
+QString MainWindow::getRole(){
+    QSqlQuery sq = db.exec(QString("select rolname from pg_user\
+                            join pg_auth_members on (pg_user.usesysid=pg_auth_members.member)\
+                            join pg_roles on (pg_roles.oid=pg_auth_members.roleid)\
+                            where pg_user.usename='%1';").arg(login));
 
+    sq.first();
+    return sq.value(0).toString();
+}
 
 int MainWindow::connectUser(){
     db.setHostName(ip);
@@ -74,7 +84,7 @@ int MainWindow::initHR(){
     ui->hr_w->setVisible(true);
     ui->manag_w->setVisible(false);
     ui->hr_w->setStyleSheet("QTabWidget::pane {border: 0px; background-repeat: no repeat;}");
-    ui->info_label2->setText("HR");
+    ui->info_label2->setText("Менеджер Персоналу");
     ui->contactor_table->resizeColumnsToContents();
     ui->position_table->resizeColumnsToContents();
     ui->interview_table->resizeColumnsToContents();
@@ -84,10 +94,29 @@ int MainWindow::initHR(){
     connect(ui->interwiev_do_bt, SIGNAL(clicked()), this, SLOT(showInterviewWindow()));
     connect(ui->position_move_bt, SIGNAL(clicked()), this, SLOT(showMovePositionWindow()));
     connect(ui->positionadd_bt, SIGNAL(clicked()), this, SLOT(showAddPositionWindow()));
-    connect(ui->positiondel_bt_, SIGNAL(clicked()), this, SLOT(showDelPositionWindow()));
     connect(ui->add_contr_omn_staff_bt, SIGNAL(clicked()), this, SLOT(showAddContractorToStaffWindow()));
     return 0;
 }
+
+int MainWindow::initInspector(){
+    ui->hr_w->setVisible(true);
+    ui->manag_w->setVisible(false);
+    ui->hr_w->setStyleSheet("QTabWidget::pane {border: 0px; background-repeat: no repeat;}");
+    ui->info_label2->setText("Інспектор");
+    ui->contactor_table->resizeColumnsToContents();
+    ui->position_table->resizeColumnsToContents();
+    ui->interview_table->resizeColumnsToContents();
+    ui->staff_table->resizeColumnsToContents();
+    refreshHR();
+    ui->addintresult_bt->setVisible(false);
+    ui->add_contr_bt->setVisible(false);
+    ui->add_contr_omn_staff_bt->setVisible(false);
+    ui->interwiev_do_bt->setVisible(false);
+    ui->positionadd_bt->setVisible(false);
+    ui->position_move_bt->setVisible(false);
+    return 0;
+}
+
 
 int MainWindow::refreshHR(){
     QString query;
@@ -123,7 +152,8 @@ int MainWindow::showAddContactorWindow() { //gotovo
     return 1;
 }
 
-int MainWindow::showInterviewWindow(){ //razduplitsa s gridom
+int MainWindow::showInterviewWindow(){ //next
+
     interviewwindow iw(this, db);
     iw.setModal(true);
     MainWindow::setVisible(false);
@@ -143,11 +173,12 @@ int MainWindow::showMovePositionWindow(){ //poslednee
     int mwres = mw.exec();
     if (QDialog::Rejected)
         mw.close();
+    refreshHR();
     MainWindow::setVisible(true);
     return 1;
 }
 
-int MainWindow::showAddContractorToStaffWindow() {
+int MainWindow::showAddContractorToStaffWindow() { //posle interview
     AddContractorToStaff acs(this, db);
     acs.setModal(true);
     MainWindow::setVisible(false);
@@ -172,17 +203,7 @@ int MainWindow::showAddPositionWindow() { // gotovo
     return 1;
 }
 
-int MainWindow::showDelPositionWindow() { //next
-    DelPosition dp(this, db);
-    dp.setModal(true);
-    MainWindow::setVisible(false);
-    dp.show();
-    int dpres = dp.exec();
-    if (QDialog::Rejected)
-        dp.close();
-    MainWindow::setVisible(true);
-    return 1;
-}
+
 
 int MainWindow::fillTable(QTableWidget *tab, QString query){
 
@@ -210,17 +231,24 @@ void MainWindow::paintEvent(QPaintEvent *) {
 
     ui->info_label1->setStyleSheet("background-color: gray ");
     ui->info_label2->setStyleSheet("background-color: gray ");
-    if (user_type == 0) {
+
+    if (role == "staff_manager") {
         QImage img("C:/eva.png");
         QPainter painter(this);
         painter.drawImage(0,0, img.scaled(this->size()));
     }
-    if (user_type == 1) {
-        QImage img("C:/megan_3.png");
+
+    if (role == "inspector") {
+        QImage img("C:/eva_2.png");
         QPainter painter(this);
         painter.drawImage(0,0, img.scaled(this->size()));
     }
 
+    if (role == '228') {
+        QImage img("C:/megan_3.png");
+        QPainter painter(this);
+        painter.drawImage(0,0, img.scaled(this->size()));
+    }
 }
 
 void MainWindow::on_exit_to_log_w_clicked(){

@@ -53,10 +53,7 @@ QString LoginWindow::getPort() {
     return ui->port_edit->text();
 }
 
-int LoginWindow::getUserType() {
-    if (ui->hr_button->isChecked()) return 0;
-    if (ui->merch_button->isChecked()) return 1;
-}
+
 
 
 
@@ -70,8 +67,8 @@ void LoginWindow::paintEvent(QPaintEvent *) {
     ui->pass_label->setStyleSheet("color: rgb(255,250,250)");
     ui->ip_label->setStyleSheet("color: rgb(255,250,250)");
     ui->port_label->setStyleSheet("color: rgb(255,250,250)");
-    ui->type_label->setStyleSheet("color: rgb(255,250,250)");
-    ui->hr_button->setStyleSheet("color: rgb(255,250,250)");
-    ui->merch_button->setStyleSheet("color: rgb(255,250,250)");
+   // ui->type_label->setStyleSheet("color: rgb(255,250,250)");
+   // ui->hr_button->setStyleSheet("color: rgb(255,250,250)");
+   // ui->merch_button->setStyleSheet("color: rgb(255,250,250)");
     ui->error_label->setStyleSheet("color: rgb(255,250,250)");
 }

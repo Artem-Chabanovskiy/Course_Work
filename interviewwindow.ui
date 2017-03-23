@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>534</height>
+    <width>587</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -73,21 +73,11 @@
     <string>Виберіть посаду :</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="position_combobox">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>310</y>
-     <width>251</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="add_interview_button">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>440</y>
+     <x>10</x>
+     <y>570</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -99,8 +89,8 @@
   <widget class="QPushButton" name="cansel_button">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>440</y>
+     <x>380</x>
+     <y>570</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -118,6 +108,36 @@
      <height>192</height>
     </rect>
    </property>
+   <column>
+    <property name="text">
+     <string>Идентифікатор</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Прізвище</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QTableWidget" name="avaliable_position_table">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>320</y>
+     <width>256</width>
+     <height>192</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Идентифікатор</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Назва посади</string>
+    </property>
+   </column>
   </widget>
  </widget>
  <resources/>

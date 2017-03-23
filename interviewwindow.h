@@ -5,6 +5,8 @@
 #include <QDialog>
 #include <QtSql>
 #include <QCompleter>
+#include <QTabWidget>
+#include <QTableWidget>
 
 namespace Ui {
 class interviewwindow;
@@ -18,9 +20,13 @@ public:
     explicit interviewwindow(QWidget *parent = 0, QSqlDatabase db1 = QSqlDatabase());
     ~interviewwindow();
 
+private slots:
+    int doInterview();
+
 private:
     Ui::interviewwindow *ui;
     QSqlDatabase db;
+    int fillTable(QTableWidget *, QString);
 };
 
 #endif // INTERVIEWWINDOW_H
