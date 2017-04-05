@@ -3,6 +3,7 @@
 #include <QDialogButtonBox>
 #include <QDialog>
 #include <QDesktopWidget>
+#include <QLineEdit>
 
 
 /*LoginWindow::LoginWindow(QWidget *parent) :QWidget(parent), ui(new Ui::LoginWindow){
@@ -17,10 +18,11 @@ LoginWindow::LoginWindow(QWidget *parent, QString El) :QDialog(parent), ui(new U
     connect( ui->enter_button, SIGNAL( clicked() ), SLOT( accept() ) );
     connect( ui->exit_button, SIGNAL( clicked() ), SLOT( reject()  ) );
 
-    ui->login_edit->setText("postgres");
-    ui->password_edit->setText("12345");
-    ui->ip_edit->setText("localhost");
-    ui->port_edit->setText("5432");
+    ui->login_edit->setText("staff_manager_1");
+    ui->password_edit->setText("stfmng_1");
+    ui->password_edit->setEchoMode(QLineEdit::Password);
+    //ui->ip_edit->setText("localhost");
+    //ui->port_edit->setText("5432");
 
     QDesktopWidget desktop;
     QRect rect = desktop.availableGeometry(desktop.primaryScreen()); // прямоугольник с размерами экрана
@@ -45,13 +47,13 @@ QString LoginWindow::getPw() {
     return ui->password_edit->text();
 }
 
-QString LoginWindow::getIP(){
+/*QString LoginWindow::getIP(){
     return ui->ip_edit->text();
 }
 
 QString LoginWindow::getPort() {
     return ui->port_edit->text();
-}
+}*/
 
 
 
@@ -65,8 +67,8 @@ void LoginWindow::paintEvent(QPaintEvent *) {
     //ui->logwin_label->setStyleSheet("color: rgb(255,000,000)")
     ui->log_label->setStyleSheet("color: rgb(255,250,250)");
     ui->pass_label->setStyleSheet("color: rgb(255,250,250)");
-    ui->ip_label->setStyleSheet("color: rgb(255,250,250)");
-    ui->port_label->setStyleSheet("color: rgb(255,250,250)");
+  //  ui->ip_label->setStyleSheet("color: rgb(255,250,250)");
+  //  ui->port_label->setStyleSheet("color: rgb(255,250,250)");
    // ui->type_label->setStyleSheet("color: rgb(255,250,250)");
    // ui->hr_button->setStyleSheet("color: rgb(255,250,250)");
    // ui->merch_button->setStyleSheet("color: rgb(255,250,250)");

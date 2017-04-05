@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
-    <height>665</height>
+    <width>1039</width>
+    <height>543</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>521</width>
+     <width>1121</width>
      <height>41</height>
     </rect>
    </property>
@@ -76,8 +76,8 @@
   <widget class="QPushButton" name="add_interview_button">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>570</y>
+     <x>20</x>
+     <y>460</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -89,8 +89,8 @@
   <widget class="QPushButton" name="cansel_button">
    <property name="geometry">
     <rect>
-     <x>380</x>
-     <y>570</y>
+     <x>270</x>
+     <y>460</y>
      <width>141</width>
      <height>51</height>
     </rect>
@@ -102,42 +102,125 @@
   <widget class="QTableWidget" name="contr_to_int_table">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>210</x>
      <y>90</y>
-     <width>256</width>
+     <width>471</width>
      <height>192</height>
     </rect>
    </property>
-   <column>
-    <property name="text">
-     <string>Идентифікатор</string>
-    </property>
-   </column>
    <column>
     <property name="text">
      <string>Прізвище</string>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>Ім'я</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ідентифікаційний код</string>
+    </property>
+   </column>
   </widget>
-  <widget class="QTableWidget" name="avaliable_position_table">
+  <widget class="QComboBox" name="position_cb">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>320</y>
-     <width>256</width>
-     <height>192</height>
+     <x>210</x>
+     <y>310</y>
+     <width>201</width>
+     <height>31</height>
     </rect>
    </property>
-   <column>
-    <property name="text">
-     <string>Идентифікатор</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
-     <string>Назва посади</string>
-    </property>
-   </column>
+  </widget>
+  <widget class="QLabel" name="error_label">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>310</y>
+     <width>231</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="interview_sort_bt">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>160</y>
+     <width>171</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Відсортувати за прізвищем</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="error_label_2">
+   <property name="geometry">
+    <rect>
+     <x>1290</x>
+     <y>330</y>
+     <width>271</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="search_contr_to_st_bt">
+   <property name="geometry">
+    <rect>
+     <x>721</x>
+     <y>202</y>
+     <width>269</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Пошук</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="search_contr_to_st_lb">
+   <property name="geometry">
+    <rect>
+     <x>721</x>
+     <y>91</y>
+     <width>269</width>
+     <height>75</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Пошук за прізвищем:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="search_contr_to_st_edit">
+   <property name="geometry">
+    <rect>
+     <x>721</x>
+     <y>173</y>
+     <width>269</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="refresh_bt">
+   <property name="geometry">
+    <rect>
+     <x>800</x>
+     <y>450</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Перезавантажити</string>
+   </property>
   </widget>
  </widget>
  <resources/>

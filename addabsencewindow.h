@@ -1,5 +1,5 @@
-#ifndef INTERVIEWWINDOW_H
-#define INTERVIEWWINDOW_H
+#ifndef ADDABSENCEWINDOW_H
+#define ADDABSENCEWINDOW_H
 
 #include <QWidget>
 #include <QDialog>
@@ -8,32 +8,33 @@
 #include <QTabWidget>
 #include <QTableWidget>
 
+
 namespace Ui {
-class interviewwindow;
+class AddAbsenceWindow;
 }
 
-class interviewwindow : public QDialog
+class AddAbsenceWindow : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit interviewwindow(QWidget *parent = 0, QSqlDatabase db1 = QSqlDatabase());
-    ~interviewwindow();
+    explicit AddAbsenceWindow(QWidget *parent = 0, QSqlDatabase db1 = QSqlDatabase());
+    ~AddAbsenceWindow();
 
 private slots:
-    int doInterview();
+    int AddAbsence();
 
-    void on_interview_sort_bt_clicked();
+    void on_absence_sort_bt_clicked();
 
     void on_search_contr_to_st_bt_clicked();
 
     void on_refresh_bt_clicked();
 
 private:
-    Ui::interviewwindow *ui;
+    Ui::AddAbsenceWindow *ui;
     QSqlDatabase db;
     int fillTable(QTableWidget *, QString);
     QStringList slContr;
 };
 
-#endif // INTERVIEWWINDOW_H
+#endif // ADDABSENCEWINDOW_H

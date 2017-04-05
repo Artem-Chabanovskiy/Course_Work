@@ -27,14 +27,45 @@ private slots:
     int showMovePositionWindow();
     int showAddPositionWindow();
     int showAddContractorToStaffWindow();
+    int showAddAbsenceWindow();
+
+    void on_sort_contractor_surname_bt_clicked();
+
+    void on_sort_contractor_date_bt_clicked();
+
+    void on_sort_interview_surname_bt__clicked();
+
+    void on_sort_interview_position_bt_clicked();
+
+    void on_sort_position_surname_bt_clicked();
+
+    void on_sort_position_name_bt_clicked();
+
+    void on_sort_absence_surname_bt_clicked();
+
+    void on_sort_absence_type_bt_clicked();
+
+    void on_search_contr_bt_clicked();
+
+    void on_search_inter_b_clicked();
+
+    void on_search_staff_bt_clicked();
+
+    void on_search_absenc_bt_clicked();
+
+    void on_refresh_bt_clicked();
 
 private:
     Ui::MainWindow *ui;
     QString login;
     QString pw;
-    QString ip;
-    QString port;
+    QString ip = "localhost";
+    int port = 5432;
     QString role;
+    QStringList slContr;
+    QStringList slInter;
+    QStringList slStaff;
+    QStringList slAbsence;
     //int user_type;
 
     QString getRole();
@@ -43,6 +74,7 @@ private:
     int initManager();
     int initHR();
     int initInspector();
+    int initInterviewer();
     int refreshHR();
     int fillTable(QTableWidget *, QString);
 

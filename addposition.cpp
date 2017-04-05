@@ -31,6 +31,7 @@ int AddPosition::add_position(){
     query2 = QString("FROM position WHERE (id_staffing_table = currval('public.staffing_table_id_staffing_table_seq')) ;");
     query = query1 + query2;
     db.exec(query);
+    qDebug() << query;
     qDebug() << db.lastError();
     AddPosition::close();
     return 0;

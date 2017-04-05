@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>403</width>
-    <height>192</height>
+    <width>868</width>
+    <height>486</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QLabel" name="info_label">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>30</x>
      <y>10</y>
      <width>381</width>
      <height>31</height>
@@ -32,21 +32,11 @@
     <string>Виберіть контрагента серед пройшовших співбесіду :</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="contr_intrvwd_cb">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>60</y>
-     <width>371</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="add_to_staff_bt">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>110</y>
+     <x>20</x>
+     <y>360</y>
      <width>141</width>
      <height>61</height>
     </rect>
@@ -58,14 +48,112 @@
   <widget class="QPushButton" name="cansel_bt">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>110</y>
+     <x>400</x>
+     <y>360</y>
      <width>141</width>
      <height>61</height>
     </rect>
    </property>
    <property name="text">
     <string>Скасувати операцію</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="contr_to_staff_table">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>50</y>
+     <width>521</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Прізвище</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ім'я</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ідентифікаційний код</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Посада</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="addcontr_sort_bt">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>360</y>
+     <width>221</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Відсортувати за прізвищем</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>50</y>
+     <width>271</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QLabel" name="search_contr_to_st_lb">
+      <property name="text">
+       <string>Пошук за прізвищем:</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="search_contr_to_st_edit"/>
+    </item>
+    <item>
+     <widget class="QPushButton" name="search_contr_to_st_bt">
+      <property name="text">
+       <string>Пошук</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="error_label">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>240</y>
+     <width>271</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="refresh_bt">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>360</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Перезавантажити</string>
    </property>
   </widget>
  </widget>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AddAbsenceWindow</class>
+ <widget class="QWidget" name="AddAbsenceWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>985</width>
+    <height>628</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="info_lb">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>961</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>16</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Вікно додання відсутності</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="contr_choose_lb">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Оберіть контрагента :</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="contr_absence_tb">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>521</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <column>
+    <property name="text">
+     <string>Прізвище</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ім'я</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Посада</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ідентифікаційний код</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="add_absence_bt">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>540</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Додати</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cansel_bt">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>540</y>
+     <width>151</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Скасувати операцію</string>
+   </property>
+  </widget>
+  <widget class="QSplitter" name="splitter">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>350</y>
+     <width>147</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <widget class="QLabel" name="absence_choose_lb_">
+    <property name="text">
+     <string>Оберіть тип відсутності :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="date_start_lb">
+    <property name="text">
+     <string>Дата початку :</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="date_end_lb">
+    <property name="text">
+     <string>Дата кінця :</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QSplitter" name="splitter_2">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>350</y>
+     <width>201</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <widget class="QComboBox" name="absence_choose_cb"/>
+   <widget class="QDateEdit" name="start_date_edit"/>
+   <widget class="QDateEdit" name="end_date_edit"/>
+  </widget>
+  <widget class="QLabel" name="error_lb">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>350</y>
+     <width>231</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="absence_sort_bt">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>540</y>
+     <width>211</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Відсортувати за прізвищем</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="search_contr_to_st_lb">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>139</y>
+     <width>269</width>
+     <height>75</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Пошук за прізвищем:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="search_contr_to_st_edit">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>221</y>
+     <width>269</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="refresh_bt">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>530</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Перезавантажити</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="search_contr_to_st_bt">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>250</y>
+     <width>269</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Пошук</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="error_label">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>340</y>
+     <width>231</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

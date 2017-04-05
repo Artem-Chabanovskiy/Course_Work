@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1259</width>
+    <width>1290</width>
     <height>726</height>
    </rect>
   </property>
@@ -56,13 +56,13 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
+      <y>60</y>
       <width>1241</width>
       <height>531</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="contractors">
      <attribute name="title">
@@ -71,7 +71,7 @@
      <widget class="QPushButton" name="interwiev_do_bt">
       <property name="geometry">
        <rect>
-        <x>650</x>
+        <x>150</x>
         <y>420</y>
         <width>131</width>
         <height>51</height>
@@ -99,7 +99,7 @@
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>811</width>
+        <width>841</width>
         <height>391</height>
        </rect>
       </property>
@@ -148,31 +148,91 @@
         </font>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>id_contractor</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="sort_contractor_surname_bt">
+      <property name="geometry">
+       <rect>
+        <x>620</x>
+        <y>420</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за прізвищем</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sort_contractor_date_bt">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>420</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за датою народження</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="contr_error_lb">
+      <property name="geometry">
+       <rect>
+        <x>890</x>
+        <y>220</y>
+        <width>331</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>30</y>
+        <width>301</width>
+        <height>131</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QLabel" name="search_contr_lb">
+         <property name="text">
+          <string>Пошук за прізвищем:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="search_contr_edit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="search_contr_bt">
+         <property name="text">
+          <string>Пошук</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="interview">
      <attribute name="title">
       <string>Співбесіди</string>
      </attribute>
-     <widget class="QPushButton" name="addintresult_bt">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>430</y>
-        <width>171</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Додати результат</string>
-      </property>
-     </widget>
      <widget class="QTableWidget" name="interview_table">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>501</width>
+        <width>541</width>
         <height>411</height>
        </rect>
       </property>
@@ -193,6 +253,11 @@
       </column>
       <column>
        <property name="text">
+        <string>id_contractor</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Посада</string>
        </property>
       </column>
@@ -201,6 +266,74 @@
         <string>Результат</string>
        </property>
       </column>
+     </widget>
+     <widget class="QPushButton" name="sort_interview_surname_bt_">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>440</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за прізвищем</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sort_interview_position_bt">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>440</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за посадою</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="inter_error_lb">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>240</y>
+        <width>331</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>630</x>
+        <y>20</y>
+        <width>271</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="search_inter_lb">
+         <property name="text">
+          <string>Пошук за прізвищем:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="search_inter_edit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="search_inter_b">
+         <property name="text">
+          <string>Пошук</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QWidget" name="position">
@@ -244,7 +377,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>430</y>
+        <y>420</y>
         <width>211</width>
         <height>51</height>
        </rect>
@@ -256,8 +389,8 @@
      <widget class="QPushButton" name="position_move_bt">
       <property name="geometry">
        <rect>
-        <x>220</x>
-        <y>430</y>
+        <x>230</x>
+        <y>420</y>
         <width>211</width>
         <height>51</height>
        </rect>
@@ -271,7 +404,7 @@
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>241</width>
+        <width>511</width>
         <height>391</height>
        </rect>
       </property>
@@ -287,19 +420,223 @@
       </column>
       <column>
        <property name="text">
+        <string>id_contractor</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Посада</string>
        </property>
       </column>
+     </widget>
+     <widget class="QPushButton" name="sort_position_surname_bt">
+      <property name="geometry">
+       <rect>
+        <x>700</x>
+        <y>420</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за прізвищем</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sort_position_name_bt">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>420</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за посадою</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>580</x>
+        <y>20</y>
+        <width>271</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="search_staff_lb">
+         <property name="text">
+          <string>Пошук за прізвищем:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="search_staff_edit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="search_staff_bt">
+         <property name="text">
+          <string>Пошук</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="staff_error_lb">
+      <property name="geometry">
+       <rect>
+        <x>880</x>
+        <y>230</y>
+        <width>331</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="absence">
+     <attribute name="title">
+      <string>Відсутності</string>
+     </attribute>
+     <widget class="QTableWidget" name="absence_tb">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>641</width>
+        <height>371</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>Прізвище</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ім'я</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>id_contractor</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Посада</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Дата початку</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Дата кінця</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Тип відсутності</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="absence_add_bt">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>410</y>
+        <width>231</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Додати відсутність</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sort_absence_surname_bt">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>420</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за прізвищем</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="sort_absence_type_bt">
+      <property name="geometry">
+       <rect>
+        <x>280</x>
+        <y>420</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Відсортувати за типом відсутності</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_3">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>20</y>
+        <width>271</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QLabel" name="search_absence">
+         <property name="text">
+          <string>Пошук за прізвищем:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="search_absence_edit"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="search_absenc_bt">
+         <property name="text">
+          <string>Пошук</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="absence_error_lb">
+      <property name="geometry">
+       <rect>
+        <x>930</x>
+        <y>220</y>
+        <width>291</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
      </widget>
     </widget>
    </widget>
    <widget class="QTabWidget" name="manag_w">
     <property name="geometry">
      <rect>
-      <x>1110</x>
+      <x>830</x>
       <y>10</y>
-      <width>131</width>
-      <height>81</height>
+      <width>411</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -347,18 +684,32 @@
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="refresh_bt">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>600</y>
+      <width>211</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Перезавантажити дані</string>
+    </property>
+   </widget>
    <zorder>manag_w</zorder>
    <zorder>info_label1</zorder>
    <zorder>info_label2</zorder>
    <zorder>hr_w</zorder>
    <zorder>layoutWidget</zorder>
+   <zorder>refresh_bt</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1259</width>
+     <width>1290</width>
      <height>26</height>
     </rect>
    </property>
