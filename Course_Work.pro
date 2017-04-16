@@ -7,11 +7,18 @@
 QT       += core gui
 QT       += sql
 QT       += widgets
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Course_Work
 TEMPLATE = app
+LIBS += D:\IASA\BD\NCReport\2.20.2.VS2015.Qt5.8.0.eval\lib\ncreport2.lib
+#LIBS += D:\IASA\BD\NCReport\2.20.2.VS2015.Qt5.8.0.eval\lib\ncreport2.dll
+INCLUDEPATH += D:\IASA\BD\NCReport\2.20.2.VS2015.Qt5.8.0.eval\include
+#INCLUDEPATH   +=    C:\Qt\5.8\msvc2015_64\2.20.2.VS2015.Qt5.8.0.eval\include
+#QMAKE_LIBDIR   +=    C:\Qt\5.8\msvc2015_64\2.20.2.VS2015.Qt5.8.0.eval\lib
+#LIBS           +=    -lncreport2
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked as deprecated (the exact warnings
@@ -33,7 +40,9 @@ SOURCES += main.cpp\
     moveposotionwindow.cpp \
     addposition.cpp \
     addcontractortostaff.cpp \
-    addabsencewindow.cpp
+    addabsencewindow.cpp \
+    firecontractorfromstaff.cpp \
+    rejectconrinterview.cpp
 
 HEADERS  += mainwindow.h \
     loginwindow.h \
@@ -42,7 +51,9 @@ HEADERS  += mainwindow.h \
     moveposotionwindow.h \
     addposition.h \
     addcontractortostaff.h \
-    addabsencewindow.h
+    addabsencewindow.h \
+    firecontractorfromstaff.h \
+    rejectconrinterview.h
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \
@@ -51,4 +62,6 @@ FORMS    += mainwindow.ui \
     moveposotionwindow.ui \
     addposition.ui \
     addcontractortostaff.ui \
-    addabsencewindow.ui
+    addabsencewindow.ui \
+    firecontractorfromstaff.ui \
+    rejectconrinterview.ui

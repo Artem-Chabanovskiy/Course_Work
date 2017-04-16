@@ -22,6 +22,7 @@ public:
 
 private slots:
     int moveStaff();
+    int salary_input();
 
     void on_position_move_sort_bt_clicked();
 

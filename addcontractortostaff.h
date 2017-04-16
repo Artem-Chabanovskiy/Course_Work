@@ -28,6 +28,10 @@ private slots:
 
     void on_refresh_bt_clicked();
 
+    void on_add_to_staff_first_bt_clicked();
+
+    void on_return_bt_clicked();
+
 private:
     Ui::AddContractorToStaff *ui;
     QSqlDatabase db;

@@ -28,6 +28,9 @@ private slots:
     int showAddPositionWindow();
     int showAddContractorToStaffWindow();
     int showAddAbsenceWindow();
+    int showFireContrWindow();
+    int showRejectContrIntWindow();
+    int showReportHR();
 
     void on_sort_contractor_surname_bt_clicked();
 
@@ -54,6 +57,14 @@ private slots:
     void on_search_absenc_bt_clicked();
 
     void on_refresh_bt_clicked();
+
+    void on_add_pos_info_show_clicked();
+
+    void on_add_position_info_hide_clicked();
+
+    void on_full_absence_info_bt_clicked();
+
+    void on_full_absence_info_hide_clicked();
 
 private:
     Ui::MainWindow *ui;

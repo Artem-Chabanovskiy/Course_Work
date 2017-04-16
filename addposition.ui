@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>382</height>
+    <width>592</width>
+    <height>490</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>0</x>
      <y>10</y>
-     <width>511</width>
+     <width>661</width>
      <height>51</height>
     </rect>
    </property>
@@ -57,8 +57,8 @@
   <widget class="QPushButton" name="cansel_bt">
    <property name="geometry">
     <rect>
-     <x>350</x>
-     <y>280</y>
+     <x>380</x>
+     <y>400</y>
      <width>151</width>
      <height>51</height>
     </rect>
@@ -71,7 +71,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>280</y>
+     <y>400</y>
      <width>151</width>
      <height>51</height>
     </rect>
@@ -106,10 +106,10 @@
     </font>
    </property>
    <property name="text">
-    <string>Введіть зарлату :</string>
+    <string>Введіть мінімальну зарлату :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="position_salary_edit">
+  <widget class="QLineEdit" name="position_salary_min_edit">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -123,7 +123,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>200</y>
+     <y>260</y>
      <width>261</width>
      <height>31</height>
     </rect>
@@ -142,10 +142,52 @@
    <property name="geometry">
     <rect>
      <x>320</x>
+     <y>260</y>
+     <width>181</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="salary_position_lb_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>200</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Times New Roman</family>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Введіть максимальну зарлату :</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="position_salary_max_edit">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
      <y>200</y>
      <width>181</width>
      <height>21</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="error_label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>320</y>
+     <width>541</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

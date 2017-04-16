@@ -8,11 +8,20 @@
 #include "addposition.h"
 #include "addcontractortostaff.h"
 #include "addabsencewindow.h"
+#include "firecontractorfromstaff.h"
+#include "ncreport.h"
+#include "ncreportoutput.h"
+#include "ncreportpreviewoutput.h"
+#include "ncreportpreviewwindow.h"
+#include "rejectconrinterview.h"
+
+
 #include <QResource>
 #include <QMessageBox>
 #include <QtCore>
 #include <QTabWidget>
 #include <QDialog>
+
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -84,12 +93,14 @@ int MainWindow::connectUser(){
 int MainWindow::initHR(){
     ui->hr_w->setVisible(true);
     ui->manag_w->setVisible(false);
+    ui->add_pos_info_tableble->setVisible(false);
     ui->hr_w->setStyleSheet("QTabWidget::pane {border: 0px; background-repeat: no repeat;}");
     ui->info_label2->setText("Менеджер Персоналу");
     ui->contactor_table->resizeColumnsToContents();
     ui->position_table->resizeColumnsToContents();
     ui->interview_table->resizeColumnsToContents();
     ui->staff_table->resizeColumnsToContents();
+    ui->ful_absence_info_tb->resizeColumnsToContents();
     refreshHR();
     ui->search_contr_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_absence_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
@@ -101,11 +112,22 @@ int MainWindow::initHR(){
     connect(ui->positionadd_bt, SIGNAL(clicked()), this, SLOT(showAddPositionWindow()));
     connect(ui->add_contr_omn_staff_bt, SIGNAL(clicked()), this, SLOT(showAddContractorToStaffWindow()));
     connect(ui->absence_add_bt, SIGNAL (clicked()), this, SLOT(showAddAbsenceWindow()));
+    connect(ui->fire_contr_from_staff_bt, SIGNAL (clicked()), this, SLOT (showFireContrWindow()));
+    connect(ui->report_bt,  SIGNAL (clicked()), this, SLOT (showReportHR()));
+    connect(ui->reject_contr_int_bt, SIGNAL (clicked()), this, SLOT (showRejectContrIntWindow()));
+    ui->add_pos_info_tableble->setVisible(false);
+    ui->ful_absence_info_tb->setVisible(false);
+    ui->full_absence_info_bt->setVisible(false);
+    ui->full_absence_info_hide->setVisible(false);
     //skruvaem kovonki c idishnikami
     ui->contactor_table->setColumnHidden(7, true);
     ui->interview_table->setColumnHidden(3, true);
     ui->staff_table->setColumnHidden(2, true);
     ui->absence_tb->setColumnHidden(2, true);
+
+    QSqlQueryModel *model = new QSqlQueryModel(this);
+    model->setQuery("SELECT name_of_the_type FROM type_of_absence;");
+    ui->full_absence_info_cb->setModel(model);
     return 0;
 }
 
@@ -121,7 +143,9 @@ int MainWindow::initInspector(){
     ui->position_table->resizeColumnsToContents();
     ui->interview_table->resizeColumnsToContents();
     ui->staff_table->resizeColumnsToContents();
+    ui->ful_absence_info_tb->resizeColumnsToContents();
     refreshHR();
+    connect(ui->report_bt,  SIGNAL (clicked()), this, SLOT (showReportHR()));
     ui->search_contr_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_absence_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_staff_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
@@ -130,12 +154,22 @@ int MainWindow::initInspector(){
     ui->interview_table->setColumnHidden(3, true);
     ui->staff_table->setColumnHidden(2, true);
     ui->absence_tb->setColumnHidden(2, true);
-    //ui->addintresult_bt->setVisible(false);
+    ui->add_pos_info_tableble->setVisible(false);
+    ui->fire_contr_from_staff_bt->setVisible(false);
+    ui->ful_absence_info_tb->setVisible(false);
     ui->add_contr_bt->setVisible(false);
     ui->add_contr_omn_staff_bt->setVisible(false);
     ui->interwiev_do_bt->setVisible(false);
     ui->positionadd_bt->setVisible(false);
     ui->position_move_bt->setVisible(false);
+    ui->absence_add_bt->setVisible(false);
+    ui->ful_absence_info_tb->setVisible(false);
+    ui->full_absence_info_bt->setVisible(false);
+    ui->full_absence_info_hide->setVisible(false);
+
+    QSqlQueryModel *model = new QSqlQueryModel(this);
+    model->setQuery("SELECT name_of_the_type FROM type_of_absence;");
+    ui->full_absence_info_cb->setModel(model);
     return 0;
 }
 
@@ -148,22 +182,34 @@ int MainWindow::initInterviewer(){
     ui->position_table->resizeColumnsToContents();
     ui->interview_table->resizeColumnsToContents();
     ui->staff_table->resizeColumnsToContents();
+    ui->ful_absence_info_tb->resizeColumnsToContents();
     refreshHR();
     ui->search_contr_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_absence_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_staff_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_inter_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+    ui->add_pos_info_tableble->setVisible(false);
+    ui->fire_contr_from_staff_bt->setVisible(false);
     ui->contactor_table->setColumnHidden(7, true);
     ui->interview_table->setColumnHidden(3, true);
     ui->staff_table->setColumnHidden(2, true);
     ui->absence_tb->setColumnHidden(2, true);
+    ui->hr_w->setTabEnabled(4, false);
     //ui->addintresult_bt->setVisible(true);
+    ui->ful_absence_info_tb->setVisible(false);
     ui->add_contr_bt->setVisible(false);
     ui->add_contr_omn_staff_bt->setVisible(true);
     ui->interwiev_do_bt->setVisible(true);
     ui->positionadd_bt->setVisible(false);
     ui->position_move_bt->setVisible(false);
-    //ui->hr_w->set
+    ui->ful_absence_info_tb->setVisible(false);
+    ui->full_absence_info_bt->setVisible(false);
+    ui->full_absence_info_hide->setVisible(false);
+
+    QSqlQueryModel *model = new QSqlQueryModel(this);
+    model->setQuery("SELECT name_of_the_type FROM type_of_absence;");
+    ui->full_absence_info_cb->setModel(model);
+
     return 0;
 }
 
@@ -183,9 +229,15 @@ int MainWindow::refreshHR(){
     fillTable(ui->contactor_table, query);
     query = "SELECT (name_of_position) FROM position;";
     fillTable(ui->position_table , query);
-    query = "SELECT a.surname AS surname, a.name AS namee, a.pathronymic AS pathronymic, a.id_contractor AS idc, p.name_of_position AS name_position, i.result AS resultat FROM physical_person a, position p, interview i WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position;";
+    query = "SELECT a.surname AS surname, a.name AS namee, a.pathronymic AS pathronymic, a.id_contractor AS idc, p.name_of_position AS name_position, i.result AS resultat "
+            "FROM physical_person a, position p, interview i "
+            "WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position;";
     fillTable(ui->interview_table, query);
-    query = "SELECT a.surname AS surname, a.name AS name, a.id_contractor AS idc, p.name_of_position AS position FROM physical_person a, position p, staff WHERE a.id_contractor = staff.id_contractor AND p.id_position = staff.id_position;";
+    query = "SELECT a.surname AS surname, a.name AS name, a.id_contractor AS idc, p.name_of_position AS position, cp.cadre_salary AS salary "
+            "FROM physical_person a, position p, staff st, cadre_on_position cp "
+            "WHERE a.id_contractor = st.id_contractor AND p.id_position = st.id_position "
+            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL) "
+            "AND st.id_staff = cp.id_staff;";
     fillTable(ui->staff_table, query);
     query = "SELECT ph.surname, ph.name, ph.id_contractor, p.name_of_position, sa.start_date, sa.end_date, ta.name_of_the_type "
             "FROM physical_person AS ph, position AS p, staff_absence AS sa, type_of_absence AS ta, staff AS st "
@@ -236,7 +288,7 @@ int MainWindow::showMovePositionWindow(){ //poslednee
     return 1;
 }
 
-int MainWindow::showAddContractorToStaffWindow() { //posle interview
+int MainWindow::showAddContractorToStaffWindow() {
     AddContractorToStaff acs(this, db);
     acs.setModal(true);
     MainWindow::setVisible(false);
@@ -248,6 +300,20 @@ int MainWindow::showAddContractorToStaffWindow() { //posle interview
     MainWindow::setVisible(true);
     return 1;
 }
+
+int MainWindow::showFireContrWindow(){ //poslednee
+    FireContractorFromStaff fc(this, db);
+    fc.setModal(true);
+    MainWindow::setVisible(false);
+    fc.show();
+    int fcres = fc.exec();
+    if (QDialog::Rejected)
+        fc.close();
+    refreshHR();
+    MainWindow::setVisible(true);
+    return 1;
+}
+
 
 int MainWindow::showAddPositionWindow() { // gotovo
     AddPosition ap(this, db);
@@ -270,6 +336,20 @@ int MainWindow::showAddAbsenceWindow() {
     int aares = aa.exec();
     if (QDialog::Rejected)
         aa.close();
+    refreshHR();
+    MainWindow::setVisible(true);
+    return 1;
+}
+
+int MainWindow::showRejectContrIntWindow(){ //next
+
+    RejectConrInterview ri(this, db);
+    ri.setModal(true);
+    MainWindow::setVisible(false);
+    ri.show();
+    int rires = ri.exec();
+    if (QDialog::Rejected)
+        ri.close();
     refreshHR();
     MainWindow::setVisible(true);
     return 1;
@@ -307,6 +387,7 @@ void MainWindow::paintEvent(QPaintEvent *) {
     ui->search_absence->setStyleSheet("background-color: gray ");
     ui->search_inter_lb->setStyleSheet("background-color: gray ");
     ui->search_staff_lb->setStyleSheet("background-color: gray ");
+    ui->full_absence_info_lb->setStyleSheet("background-color: gray ");
 
     if (role == "staff_manager") {
         QImage img("C:/eva.png");
@@ -330,6 +411,44 @@ void MainWindow::paintEvent(QPaintEvent *) {
 void MainWindow::on_exit_to_log_w_clicked(){
     QProcess::startDetached(QApplication::applicationFilePath(), QStringList(), QApplication::applicationDirPath());
     qApp->~QApplication();
+}
+
+int MainWindow::showReportHR(){
+
+    QStringList list;
+    QString query;
+    QString absence_name = ui->full_absence_info_cb->currentText();
+    query = QString("SELECT * FROM staff_absence_full_info('%1');").arg(absence_name);
+    qDebug() << query;
+    QSqlQuery sq = db.exec(query);
+    QString res;
+    while (sq.next()){
+        res = "";
+        for(int i=0; i<6 ;i++)
+            res += sq.value(i).toString() + "; ";
+        qDebug() << res;
+        list << res;
+    }
+   NCReport *report = new NCReport();
+   qDebug() << list;
+   report->setReportFile("C:/report.xml");
+   report->addStringList(list, "model1");
+   report->runReportToPreview();
+   if (report->hasError()) {
+
+       qDebug() << "ERROR:" << report->lastErrorMsg();
+
+   } else {
+
+       NCReportPreviewWindow *pv = new NCReportPreviewWindow();
+       pv->setOutput( (NCReportPreviewOutput*)report->output() );
+       pv->setWindowModality( Qt::ApplicationModal );
+       pv->setAttribute( Qt::WA_DeleteOnClose );
+       pv->show();
+    }
+
+    delete report;
+    return 0;
 }
 
 
@@ -435,8 +554,6 @@ void MainWindow::on_search_staff_bt_clicked()
     while (sq.next())
         slStaff << sq.value(0).toString();
     if (!slStaff.contains(surname_search)){
-        //ok = false;
-        //err += "Працівник з таки ім’ям відсутній в базі даних<br>";
         ui->staff_error_lb->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
                               "Такого контрагента немає <br> в персоналі!</p></body></html>");
@@ -473,4 +590,33 @@ void MainWindow::on_search_absenc_bt_clicked()
 void MainWindow::on_refresh_bt_clicked()
 {
     refreshHR();
+}
+
+void MainWindow::on_add_pos_info_show_clicked()
+{
+    QString query;
+    query = "SELECT * FROM position_info;";
+    ui->add_pos_info_tableble->setVisible(true);
+    fillTable(ui->add_pos_info_tableble, query);
+}
+
+void MainWindow::on_add_position_info_hide_clicked()
+{
+    ui->add_pos_info_tableble->setVisible(false);
+}
+
+
+void MainWindow::on_full_absence_info_bt_clicked()
+{
+    QString query;
+    QString absence_name = ui->full_absence_info_cb->currentText();
+    query = QString("SELECT * FROM staff_absence_full_info('%1');").arg(absence_name);
+    fillTable(ui->ful_absence_info_tb, query);
+    ui->ful_absence_info_tb->resizeColumnsToContents();
+    ui->ful_absence_info_tb->setVisible(true);
+}
+
+void MainWindow::on_full_absence_info_hide_clicked()
+{
+    ui->ful_absence_info_tb->setVisible(false);
 }

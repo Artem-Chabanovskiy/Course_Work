@@ -113,9 +113,12 @@
     <rect>
      <x>170</x>
      <y>80</y>
-     <width>521</width>
-     <height>261</height>
+     <width>541</width>
+     <height>211</height>
     </rect>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <column>
     <property name="text">
@@ -203,14 +206,94 @@
   <widget class="QLabel" name="error_label">
    <property name="geometry">
     <rect>
-     <x>780</x>
-     <y>290</y>
-     <width>231</width>
-     <height>101</height>
+     <x>190</x>
+     <y>470</y>
+     <width>331</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="max_sal_lb">
+   <property name="geometry">
+    <rect>
+     <x>960</x>
+     <y>330</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>2</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="salary_edit">
+   <property name="geometry">
+    <rect>
+     <x>950</x>
+     <y>380</y>
+     <width>101</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="min_info_lb">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>280</y>
+     <width>141</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Мінімальна з/п :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="max_info_lb">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>330</y>
+     <width>141</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Максимальна з/п :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="min_sal_lb">
+   <property name="geometry">
+    <rect>
+     <x>960</x>
+     <y>280</y>
+     <width>91</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="inp_info_lb">
+   <property name="geometry">
+    <rect>
+     <x>780</x>
+     <y>380</y>
+     <width>131</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Введіть зарплату :</string>
    </property>
   </widget>
  </widget>

@@ -2,6 +2,7 @@
 #include "ui_addcontractor.h"
 #include <QDialog>
 #include <QLineEdit>
+#include <string>
 
 addcontractor::addcontractor(QWidget *parent, QSqlDatabase db1) : QDialog(parent), ui(new Ui::addcontractor) {
     db = db1;
@@ -43,69 +44,21 @@ int addcontractor::ContractorInsert(){
     query->next();
     qDebug() << query_function;
     qDebug() << db.lastError();
-    int func_result = query->value(0).toInt();//.toString();
-    qDebug() << func_result;
-    switch (func_result) {
-        case 1:
-        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Одне з полів порожнє! <br> Перевірте ввведені данні!</p></body></html>");
-        break;
-        case 2:
-        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Некорректний номер телефону <br> або ідентифікаційний код!</p></body></html>");
-        break;
-        case 3:
-        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Особі немає 18 років!</p></body></html>");
-        break;
-        case 4:
-        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Особі більше 70 років!</p></body></html>");
-        break;
-        case 5:
-        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Некорректна дата народження!</p></body></html>");
-        break;
-        case 0:
+
+    if (query->lastError().isValid()) {
+        ui->error_label->setStyleSheet("QLabel { color : red; }");
+        std::string s = query->lastError().text().toUtf8().constData();;
+        s = s.substr(0,s.find("(P0001)"));
+        ui->error_label->setWordWrap(true);
+        ui->error_label->setText(QString::fromUtf8(s.c_str()));
+    }
+    else {
         addcontractor::close();
     }
-    //db.exec(query);
-
-
-
-   /*QSqlQuery*  query = new QSqlQuery;
-
-    query.prepare("SELECT ""add_contractor_to_physical_person""(:name, :surname, :pathronymic, :adress, :ident_code, :phone_nubmer, :date_of_birth)");
-    query.bindValue(":name", name);
-    query.bindValue(":surname", surname);
-    query.bindValue(":pathronymic", adress);
-    query.bindValue(":adress",          data[2].toInt());
-    query.bindValue(":ident_code",          data[2].toInt());
-    query.bindValue(":phone_number",          data[2].toInt());
-    query.bindValue(":date_of_birth",          data[2].toInt());
-    query->exec(query);
-    query->next();
-    int func_result = query->value(0).toInt();*/
-
-
-    /*if (name == "" || surname == "" || pathronymic == "" || id_code == "" || phone_number == "")
-        ui->error_lb->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Одне з полів порожнє! <br> Перевірте ввведені данні!</p></body></html>");
-    else if (phone_number.length() != 10 || id_code.length() != 10)
-        ui->error_lb->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Некорректний номер телефону <br> або ідентифікаційний код!</p></body></html>");
-    query = QString("INSERT INTO physical_person (name, surname, pathronymic, date_of_birth, adress, identificational_code, phone_number) "
-            "VALUES ('%1', '%2', '%3', '%4', '%5', '%6', '%7');").arg(name, surname, pathronymic, date_rozh, adress, id_code, phone_number);
-    db.exec(query);
-    qDebug() << db.lastError();*/
     return 0;
-}
+  }
+
+
+
 
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>868</width>
-    <height>486</height>
+    <width>859</width>
+    <height>616</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>30</x>
      <y>10</y>
-     <width>381</width>
+     <width>811</width>
      <height>31</height>
     </rect>
    </property>
@@ -29,14 +29,14 @@
     </font>
    </property>
    <property name="text">
-    <string>Виберіть контрагента серед пройшовших співбесіду :</string>
+    <string>Виберіть контрагента серед пройшовших на вільні на данний момент посади :</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="add_to_staff_bt">
+  <widget class="QPushButton" name="add_to_staff_last_bt">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>360</y>
+     <x>50</x>
+     <y>310</y>
      <width>141</width>
      <height>61</height>
     </rect>
@@ -48,8 +48,8 @@
   <widget class="QPushButton" name="cansel_bt">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>360</y>
+     <x>620</x>
+     <y>460</y>
      <width>141</width>
      <height>61</height>
     </rect>
@@ -64,8 +64,11 @@
      <x>20</x>
      <y>50</y>
      <width>521</width>
-     <height>291</height>
+     <height>401</height>
     </rect>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
    </property>
    <column>
     <property name="text">
@@ -79,7 +82,7 @@
    </column>
    <column>
     <property name="text">
-     <string>Ідентифікаційний код</string>
+     <string>id_contr</string>
     </property>
    </column>
    <column>
@@ -87,13 +90,18 @@
      <string>Посада</string>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>id_position</string>
+    </property>
+   </column>
   </widget>
   <widget class="QPushButton" name="addcontr_sort_bt">
    <property name="geometry">
     <rect>
-     <x>170</x>
-     <y>360</y>
-     <width>221</width>
+     <x>220</x>
+     <y>460</y>
+     <width>171</width>
      <height>61</height>
     </rect>
    </property>
@@ -104,10 +112,10 @@
   <widget class="QWidget" name="layoutWidget_3">
    <property name="geometry">
     <rect>
-     <x>560</x>
+     <x>550</x>
      <y>50</y>
      <width>271</width>
-     <height>141</height>
+     <height>197</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -133,11 +141,16 @@
   <widget class="QLabel" name="error_label">
    <property name="geometry">
     <rect>
-     <x>570</x>
-     <y>240</y>
-     <width>271</width>
-     <height>71</height>
+     <x>10</x>
+     <y>530</y>
+     <width>831</width>
+     <height>61</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="text">
     <string/>
@@ -146,8 +159,8 @@
   <widget class="QPushButton" name="refresh_bt">
    <property name="geometry">
     <rect>
-     <x>560</x>
-     <y>360</y>
+     <x>420</x>
+     <y>460</y>
      <width>171</width>
      <height>61</height>
     </rect>
@@ -156,6 +169,264 @@
     <string>Перезавантажити</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="add_to_staff_first_bt">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>460</y>
+     <width>191</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Перейти до введеня з/п</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="min_info_lb">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>120</y>
+     <width>291</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Мінімальна з/п данної посади:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="max_info_lb">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>180</y>
+     <width>301</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Максимальна з/п данної посади :</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="min_sal_lb">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>120</y>
+     <width>161</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>1</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="max_sal_lb">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>180</y>
+     <width>191</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>2</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="inp_info_lb">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>240</y>
+     <width>281</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Введіть зарплату :</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="salary_edit">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>240</y>
+     <width>101</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="return_bt">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>310</y>
+     <width>191</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Вибрати іншого контрагента</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="error_lb_2">
+   <property name="geometry">
+    <rect>
+     <x>590</x>
+     <y>260</y>
+     <width>221</width>
+     <height>181</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="cont_to_staff_lb_1">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>80</y>
+     <width>201</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Контрагент:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="cont_to_staff_sur_lb">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>130</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>famili9</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="cont_to_staff_name_lb">
+   <property name="geometry">
+    <rect>
+     <x>700</x>
+     <y>130</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>im9</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="cont_to_staff_lb_2">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>180</y>
+     <width>201</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+     <underline>true</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>Посада:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="staff_posit_lb">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>230</y>
+     <width>241</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>dolzhnost</string>
+   </property>
+  </widget>
+  <zorder>info_label</zorder>
+  <zorder>cansel_bt</zorder>
+  <zorder>contr_to_staff_table</zorder>
+  <zorder>addcontr_sort_bt</zorder>
+  <zorder>layoutWidget_3</zorder>
+  <zorder>error_label</zorder>
+  <zorder>refresh_bt</zorder>
+  <zorder>add_to_staff_first_bt</zorder>
+  <zorder>min_info_lb</zorder>
+  <zorder>max_info_lb</zorder>
+  <zorder>min_sal_lb</zorder>
+  <zorder>max_sal_lb</zorder>
+  <zorder>inp_info_lb</zorder>
+  <zorder>salary_edit</zorder>
+  <zorder>return_bt</zorder>
+  <zorder>error_lb_2</zorder>
+  <zorder>add_to_staff_last_bt</zorder>
+  <zorder>cont_to_staff_lb_1</zorder>
+  <zorder>cont_to_staff_sur_lb</zorder>
+  <zorder>cont_to_staff_name_lb</zorder>
+  <zorder>cont_to_staff_lb_2</zorder>
+  <zorder>staff_posit_lb</zorder>
  </widget>
  <resources/>
  <connections/>

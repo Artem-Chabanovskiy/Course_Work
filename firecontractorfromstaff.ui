@@ -1,21 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>FireContractorFromStaff</class>
  <widget class="QWidget" name="FireContractorFromStaff">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>992</width>
+    <height>562</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <widget class="QLabel" name="info_label">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>961</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>18</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Звільнення персоналу</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="info_label_2">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>90</y>
+     <width>241</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Оберіть контрагента з персоналу:</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="contr_from_staff_tb">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>130</y>
+     <width>501</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <column>
+    <property name="text">
+     <string>id_staff</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Прізвище</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Ім'я</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>id_contractor</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Посада</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>id_position</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="fire_bt">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>400</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Звільнити</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cansel_bt">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>400</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Скасувати операцію</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cansel_bt_2">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>400</y>
+     <width>141</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Перезавантажити дані</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="search_contr_from_st_lb">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>129</y>
+     <width>269</width>
+     <height>75</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Пошук за прізвищем:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="search_contr_from_st_edit">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>211</y>
+     <width>269</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="search_contr_from_st_bt">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>240</y>
+     <width>269</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Пошук</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="error_lb">
+   <property name="geometry">
+    <rect>
+     <x>600</x>
+     <y>330</y>
+     <width>321</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

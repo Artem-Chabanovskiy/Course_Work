@@ -108,6 +108,9 @@
      <height>192</height>
     </rect>
    </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
    <column>
     <property name="text">
      <string>Прізвище</string>
@@ -137,11 +140,16 @@
   <widget class="QLabel" name="error_label">
    <property name="geometry">
     <rect>
-     <x>740</x>
+     <x>590</x>
      <y>310</y>
-     <width>231</width>
+     <width>381</width>
      <height>101</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="text">
     <string/>

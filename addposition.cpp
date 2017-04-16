@@ -10,6 +10,12 @@ AddPosition::AddPosition(QWidget *parent, QSqlDatabase db1) :
     db = db1;
     connect( ui->cansel_bt, SIGNAL( clicked() ), SLOT( reject()  ) );
     connect(ui->add_position_bt, SIGNAL ( clicked() ), SLOT( add_position()));
+
+    ui->staff_complement_edit->setValidator(new QRegExpValidator(QRegExp("[0-9]+"), this));
+    ui->position_salary_min_edit->setValidator(new QRegExpValidator(QRegExp("[0-9]+"), this));
+    ui->position_salary_max_edit->setValidator(new QRegExpValidator(QRegExp("[0-9]+"), this));
+    ui->position_name_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+
 }
 
 AddPosition::~AddPosition()
@@ -18,21 +24,27 @@ AddPosition::~AddPosition()
 }
 
 int AddPosition::add_position(){
-    QString query, query1, query2;
-    QString name_position, payment, staff_compl;
+    QString query_function;
+    QString name_position, min_payment, max_payment, staff_compl;
     name_position = ui->position_name_edit->text();
-    payment = ui->position_salary_edit->text();
+    min_payment = ui->position_salary_min_edit->text();
+    max_payment = ui->position_salary_max_edit->text();
     staff_compl = ui->staff_complement_edit->text();
-    query = QString("INSERT INTO position (name_of_position) VALUES ('%1')").arg(name_position);
-    db.exec(query);
-    qDebug() << db.lastError();
-    query1 = QString("UPDATE staffing_table"
-                    " SET total_membership = '0', payment_of_position = '%1', staff_complement = '%2' ").arg(payment, staff_compl);
-    query2 = QString("FROM position WHERE (id_staffing_table = currval('public.staffing_table_id_staffing_table_seq')) ;");
-    query = query1 + query2;
-    db.exec(query);
-    qDebug() << query;
-    qDebug() << db.lastError();
-    AddPosition::close();
+    query_function = QString("SELECT ""add_position""('%1', '%2', '%3', '%4');")
+            .arg(name_position, min_payment, max_payment, staff_compl);
+    qDebug() << query_function;
+    QSqlQuery*  query = new QSqlQuery;
+    query->exec(query_function);
+    qDebug() << query->lastError();
+    if (query->lastError().isValid()) {
+    ui->error_label->setStyleSheet("QLabel { color : red; }");
+    std::string s = query->lastError().text().toUtf8().constData();;
+    s = s.substr(0,s.find("(P0001)"));
+    ui->error_label->setWordWrap(true);
+    ui->error_label->setText(QString::fromUtf8(s.c_str()));
+    }
+    else {
+       AddPosition::close();
+    }
     return 0;
 }

@@ -57,6 +57,9 @@
      <height>201</height>
     </rect>
    </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
    <column>
     <property name="text">
      <string>Прізвище</string>
@@ -148,19 +151,6 @@
    <widget class="QDateEdit" name="start_date_edit"/>
    <widget class="QDateEdit" name="end_date_edit"/>
   </widget>
-  <widget class="QLabel" name="error_lb">
-   <property name="geometry">
-    <rect>
-     <x>450</x>
-     <y>350</y>
-     <width>231</width>
-     <height>121</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QPushButton" name="absence_sort_bt">
    <property name="geometry">
     <rect>
@@ -226,11 +216,16 @@
   <widget class="QLabel" name="error_label">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>340</y>
-     <width>231</width>
-     <height>101</height>
+     <x>550</x>
+     <y>350</y>
+     <width>371</width>
+     <height>171</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
    </property>
    <property name="text">
     <string/>

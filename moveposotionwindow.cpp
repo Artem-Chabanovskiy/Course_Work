@@ -1,20 +1,26 @@
 #include "moveposotionwindow.h"
 #include "ui_moveposotionwindow.h"
 #include <QDialog>
+#include <QItemSelectionModel>
+#include <string>
 
 moveposotionwindow::moveposotionwindow(QWidget *parent, QSqlDatabase db1) :QDialog(parent), ui(new Ui::moveposotionwindow) {
     ui->setupUi(this);
     db = db1;
     connect( ui->cansel_button, SIGNAL( clicked() ), SLOT( reject()  ) );
     connect( ui->move_button,   SIGNAL( clicked() ), SLOT( moveStaff()));
+    connect( ui->position_cb, SIGNAL(currentTextChanged(QString)), SLOT( salary_input()));
 
     QString query;
-    query = "SELECT ph.surname, ph.name, ph.identificational_code, p.name_of_position "
+    query = "SELECT ph.surname, ph.name, ph.id_contractor, p.name_of_position "
             "FROM physical_person AS ph, position AS p, staff AS st "
-            "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position;";
+            "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position "
+            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);";
     qDebug() << query;
     fillTable(ui->contr_move_po_tb, query);
+
     ui->contr_move_po_tb->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->contr_move_po_tb->setColumnHidden(2, true);
 
 
      QSqlQueryModel *model = new QSqlQueryModel(this);
@@ -30,20 +36,69 @@ moveposotionwindow::~moveposotionwindow()
 
 int moveposotionwindow::moveStaff(){
     QString query;
-    //QString functionCall = "position_move_function";
-    int i = ui->contr_move_po_tb->currentRow();
-    QString ident_code = ui->contr_move_po_tb->item(i,2)->text();
-    QString position_from_move = ui->contr_move_po_tb->item(i,3)->text();
+    QItemSelectionModel *selectionModel = ui->contr_move_po_tb->selectionModel();
+    QModelIndexList selectedRows = selectionModel->selectedRows();
+
+    int max_sal = ui->max_sal_lb->text().toInt();
+    int min_sal = ui->min_sal_lb->text().toInt();
+    int staff_salary = ui->salary_edit->text().toInt();
+    QString staff_salary_str = ui->salary_edit->text();
+
+
+
+
+    if (selectedRows.size() != 1) {
+        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
+                              "Помилка ! <br>"
+                              "Оберіть одного працівника!</p></body></html>");
+    }
+    else if (staff_salary <= max_sal && staff_salary >= min_sal) {
+        int i = ui->contr_move_po_tb->currentRow();
+        QString ident_code = ui->contr_move_po_tb->item(i,2)->text();
+        QString position_from_move = ui->contr_move_po_tb->item(i,3)->text();
+        QString position_to_move = ui->position_cb->currentText();
+        qDebug() << ident_code;
+        qDebug() << position_from_move;
+        qDebug() << position_to_move;
+        query = QString("SELECT \"position_move_function\"('%1', '%2', '%3', '%4')").arg(position_from_move, position_to_move, ident_code, staff_salary_str);
+        db.exec(query);
+        qDebug() << query;
+        qDebug() << db.lastError();
+        //query = QString("")
+        moveposotionwindow::close();
+        return 0;
+    }
+    else {
+        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
+                              "Помилка ! <br>"
+                              "Некорректна з/п!</p></body></html>");
+    }
+
+}
+
+int moveposotionwindow::salary_input() {
     QString position_to_move = ui->position_cb->currentText();
-    qDebug() << ident_code;
-    qDebug() << position_from_move;
-    qDebug() << position_to_move;
-    query = QString("SELECT \"position_move_function\"('%1', '%2', '%3')").arg(position_from_move, position_to_move, ident_code);
-    db.exec(query);
-    qDebug() << query;
-    qDebug() << db.lastError();
-    //query = QString("")
-    moveposotionwindow::close();
+    QString query;
+    query = QString("SELECT id_position FROM position WHERE name_of_position = '%1';").arg(position_to_move);
+    QSqlQuery*  query_id_posit = new QSqlQuery;
+    query_id_posit->exec(query);
+    query_id_posit->next();
+    QString id_position_to_move = query_id_posit->value(0).toString();
+
+    QString query_function_min, query_function_max;
+
+    query_function_min = QString("SELECT ""get_min_salary('%1')"";").arg(id_position_to_move);
+    QSqlQuery*  query_min = new QSqlQuery;
+    query_min->exec(query_function_min);
+    query_min->next();
+    int min_salary = query_min->value(0).toInt();
+    query_function_max = QString("SELECT ""get_max_salary('%1')"";").arg(id_position_to_move);
+    QSqlQuery*  query_max = new QSqlQuery;
+    query_max->exec(query_function_max);
+    query_max->next();
+    int max_salary = query_max->value(0).toInt();
+    ui->min_sal_lb->setText(QString::number(min_salary));
+    ui->max_sal_lb->setText(QString::number(max_salary));
     return 0;
 }
 
@@ -81,7 +136,8 @@ void moveposotionwindow::on_search_contr_to_st_bt_clicked()
     surname_search = ui->search_contr_to_st_edit->text();
     query = QString("SELECT ph.surname, ph.name, ph.identificational_code, p.name_of_position "
                     "FROM physical_person AS ph, position AS p, staff AS st "
-                    "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position AND ph.surname = '%1' ;").arg(surname_search);
+                    "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position "
+                    "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL), AND ph.surname = '%1';").arg(surname_search);
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slContr << sq.value(0).toString();
@@ -101,7 +157,8 @@ void moveposotionwindow::on_refresh_bt_clicked()
     QString query;
     query = "SELECT ph.surname, ph.name, ph.identificational_code, p.name_of_position "
             "FROM physical_person AS ph, position AS p, staff AS st "
-            "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position;";
+            "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position "
+            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);";
     qDebug() << query;
     fillTable(ui->contr_move_po_tb, query);
 }
