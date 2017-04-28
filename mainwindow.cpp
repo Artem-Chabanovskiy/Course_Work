@@ -21,14 +21,14 @@
 #include <QtCore>
 #include <QTabWidget>
 #include <QDialog>
+#include <QSizePolicy>
+#include <QWidget>
 
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     db = QSqlDatabase::addDatabase("QPSQL");
     showLoginWindow();
-    //if (user_type == 0) initHR();
-    //if (user_type == 1) initManager();
     role = getRole();
     if (role == "staff_manager") initHR();
     if (role == "inspector") initInspector();
@@ -41,24 +41,20 @@ MainWindow::~MainWindow() {
 }
 
 int MainWindow::showLoginWindow(){
-    QString El;
+    //QString El;
+    LoginWindow d(this);
     while (1){
-        LoginWindow d(this, El);
         d.show();
         if(d.exec() == QDialog::Accepted){
             login = d.getLogin();
             pw = d.getPw();
-            //user_type = d.getUserType();
             if (connectUser()){
                 return 0;
             }
-
             else
-                El = "<html><head/><body><p style=\"color:red;\">"
-                     "Помилка доступу! <br>"
-                     "Такого користувача немає в БД!</p></body></html>";
+                d.set_error();
         }
-        if(d.exec() == QDialog::Rejected){
+        else{
             //MainWindow::~MainWindow();
             qApp->~QApplication();
             break;
@@ -160,6 +156,7 @@ int MainWindow::initInspector(){
     ui->add_contr_bt->setVisible(false);
     ui->add_contr_omn_staff_bt->setVisible(false);
     ui->interwiev_do_bt->setVisible(false);
+    ui->reject_contr_int_bt->setVisible(false);
     ui->positionadd_bt->setVisible(false);
     ui->position_move_bt->setVisible(false);
     ui->absence_add_bt->setVisible(false);
@@ -188,6 +185,10 @@ int MainWindow::initInterviewer(){
     ui->search_absence_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_staff_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
     ui->search_inter_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+    connect(ui->interwiev_do_bt, SIGNAL(clicked()), this, SLOT(showInterviewWindow()));
+    connect(ui->add_contr_omn_staff_bt, SIGNAL(clicked()), this, SLOT(showAddContractorToStaffWindow()));
+    connect(ui->fire_contr_from_staff_bt, SIGNAL (clicked()), this, SLOT (showFireContrWindow()));
+    connect(ui->reject_contr_int_bt, SIGNAL (clicked()), this, SLOT (showRejectContrIntWindow()));
     ui->add_pos_info_tableble->setVisible(false);
     ui->fire_contr_from_staff_bt->setVisible(false);
     ui->contactor_table->setColumnHidden(7, true);
@@ -213,13 +214,6 @@ int MainWindow::initInterviewer(){
     return 0;
 }
 
-int MainWindow::initManager(){
-    ui->manag_w->setVisible(true);
-    ui->hr_w->setVisible(false);
-    ui->manag_w->setStyleSheet("QTabWidget::pane {border: 0px; background-repeat: no repeat;}");
-    ui->info_label2->setText("Менеджер");
-    return 0;
-}
 
 
 
@@ -237,13 +231,14 @@ int MainWindow::refreshHR(){
             "FROM physical_person a, position p, staff st, cadre_on_position cp "
             "WHERE a.id_contractor = st.id_contractor AND p.id_position = st.id_position "
             "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL) "
-            "AND st.id_staff = cp.id_staff;";
+            "AND st.id_staff = cp.id_staff AND cp.date_of_leaving_from_position IS NULL;";
     fillTable(ui->staff_table, query);
     query = "SELECT ph.surname, ph.name, ph.id_contractor, p.name_of_position, sa.start_date, sa.end_date, ta.name_of_the_type "
             "FROM physical_person AS ph, position AS p, staff_absence AS sa, type_of_absence AS ta, staff AS st "
             "WHERE sa.id_type_of_absence = ta.id_type_of_absence AND p.id_position = sa.id_position AND sa.id_staff = st.id_staff "
             "AND st.id_contractor = ph.id_contractor;";
     fillTable(ui->absence_tb, query);
+    columnResize();
     return 0;
 }
 
@@ -381,7 +376,7 @@ int MainWindow::fillTable(QTableWidget *tab, QString query){
 
 void MainWindow::paintEvent(QPaintEvent *) {
 
-    ui->info_label1->setStyleSheet("background-color: gray ");
+    /*ui->info_label1->setStyleSheet("background-color: gray ");
     ui->info_label2->setStyleSheet("background-color: gray ");
     ui->search_contr_lb->setStyleSheet("background-color: gray ");
     ui->search_absence->setStyleSheet("background-color: gray ");
@@ -405,7 +400,14 @@ void MainWindow::paintEvent(QPaintEvent *) {
         QImage img("C:/eva_3.png");
         QPainter painter(this);
         painter.drawImage(0,0, img.scaled(this->size()));
-    }
+    }*/
+    ui->position_table->setStyleSheet("background-color: transparent; border : 0 ");
+    ui->interview_table->setStyleSheet("background-color: transparent; border : 0 ");
+    ui->contactor_table->setStyleSheet("background-color: transparent; border : 0 ");
+    ui->add_pos_info_tableble->setStyleSheet("background-color: transparent; border : 0 ");
+    ui->absence_tb->setStyleSheet("background-color: transparent; border : 0 ");
+    ui->staff_table->setStyleSheet("background-color: transparent; border : 0 ");
+    //ui->position_table->setStyleSheet("border = 0 ");
 }
 
 void MainWindow::on_exit_to_log_w_clicked(){
@@ -437,9 +439,11 @@ int MainWindow::showReportHR(){
    if (report->hasError()) {
 
        qDebug() << "ERROR:" << report->lastErrorMsg();
-
+       ui->report_error_lb->setStyleSheet("QLabel { color : red; }");
+       ui->report_error_lb->setText("Данні про даний тип відсутності порожні");
    } else {
 
+       ui->report_error_lb->setText("");
        NCReportPreviewWindow *pv = new NCReportPreviewWindow();
        pv->setOutput( (NCReportPreviewOutput*)report->output() );
        pv->setWindowModality( Qt::ApplicationModal );
@@ -473,7 +477,7 @@ void MainWindow::on_sort_interview_surname_bt__clicked()
 
 void MainWindow::on_sort_interview_position_bt_clicked()
 {
-    ui->interview_table->sortItems(0);
+    ui->interview_table->sortItems(4);
 }
 
 void MainWindow::on_sort_position_surname_bt_clicked()
@@ -498,19 +502,22 @@ void MainWindow::on_sort_absence_type_bt_clicked()
 
 void MainWindow::on_search_contr_bt_clicked()
 {
+    QStringList slContr;
     QString surname_search;
     QString query;
     surname_search = ui->search_contr_edit->text();
-    query = QString("SELECT * FROM physical_person WHERE surname = '%1' ;").arg(surname_search);
+    query = QString("SELECT * FROM physical_person WHERE surname ILIKE '%%1%';").arg(surname_search);
+    qDebug() << query;
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slContr << sq.value(0).toString();
-    if (!slContr.contains(surname_search)){
+        qDebug() << slContr;
+    if (slContr.empty()){
         //ok = false;
         //err += "Працівник з таки ім’ям відсутній в базі даних<br>";
         ui->contr_error_lb->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
-                              "Такої людини немає <br> в базі!</p></body></html>");
+                              "Пошук не дав результатів!</p></body></html>");
     }
     else {
     fillTable(ui->contactor_table, query);
@@ -520,21 +527,24 @@ void MainWindow::on_search_contr_bt_clicked()
 
 void MainWindow::on_search_inter_b_clicked()
 {
+    QStringList slInter;
     QString surname_search;
     QString query;
     surname_search = ui->search_inter_edit->text();
     query = QString("SELECT a.surname AS surname, a.name AS namee, a.pathronymic AS pathronymic, a.id_contractor AS idc, p.name_of_position AS name_position, i.result AS resultat "
             "FROM physical_person a, position p, interview i "
-            "WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position AND a.surname = '%1';").arg(surname_search);
+            "WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position AND a.surname ILIKE '%%1%';").arg(surname_search);
     QSqlQuery sq = db.exec(query);
+    qDebug()<< query;
     while (sq.next())
         slInter << sq.value(0).toString();
-    if (!slInter.contains(surname_search)){
+    qDebug() << slInter;
+    if (slInter.empty()){
         //ok = false;
         //err += "Працівник з таки ім’ям відсутній в базі даних<br>";
         ui->inter_error_lb->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
-                              "Така людина не проходила <br> співбесіду!</p></body></html>");
+                              "Пошук не дав результатів!</p></body></html>");
     }
     else {
     fillTable(ui->interview_table, query);
@@ -544,19 +554,22 @@ void MainWindow::on_search_inter_b_clicked()
 
 void MainWindow::on_search_staff_bt_clicked()
 {
+    QStringList slStaff;
     QString surname_search;
     QString query;
     surname_search = ui->search_staff_edit->text();
-    query = QString("SELECT a.surname AS surname, a.name AS name, a.id_contractor AS idc, p.name_of_position AS position "
-                    "FROM physical_person a, position p, staff "
-                    "WHERE a.id_contractor = staff.id_contractor AND p.id_position = staff.id_position AND a.surname = '%1';").arg(surname_search);
+    query = QString("SELECT a.surname AS surname, a.name AS name, a.id_contractor AS idc, p.name_of_position AS position, cp.cadre_salary AS salary "
+                    "FROM physical_person a, position p, staff st, cadre_on_position cp "
+                    "WHERE a.id_contractor = st.id_contractor AND p.id_position = st.id_position "
+                    "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL) "
+                    "AND st.id_staff = cp.id_staff AND cp.date_of_leaving_from_position IS NULL AND a.surname ILIKE '%%1%';").arg(surname_search);
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slStaff << sq.value(0).toString();
-    if (!slStaff.contains(surname_search)){
+    if (slStaff.empty()){
         ui->staff_error_lb->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
-                              "Такого контрагента немає <br> в персоналі!</p></body></html>");
+                              "Пошук не дав результатів!</p></body></html>");
     }
     else {
     fillTable(ui->staff_table, query);
@@ -566,20 +579,21 @@ void MainWindow::on_search_staff_bt_clicked()
 
 void MainWindow::on_search_absenc_bt_clicked()
 {
+    QStringList slAbsence;
     QString surname_search;
     QString query;
     surname_search = ui->search_absence_edit->text();
     query = QString("SELECT ph.surname, ph.name, ph.id_contractor, p.name_of_position, sa.start_date, sa.end_date, ta.name_of_the_type "
                     "FROM physical_person AS ph, position AS p, staff_absence AS sa, type_of_absence AS ta, staff AS st "
                     "WHERE sa.id_type_of_absence = ta.id_type_of_absence AND p.id_position = sa.id_position AND sa.id_staff = st.id_staff "
-                    "AND st.id_contractor = ph.id_contractor AND ph.surname = '%1';").arg(surname_search);
+                    "AND st.id_contractor = ph.id_contractor AND ph.surname  ILIKE '%%1%';").arg(surname_search);
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slAbsence << sq.value(0).toString();
-    if (!slAbsence.contains(surname_search)){
+    if (slAbsence.empty()){
         ui->absence_error_lb->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
-                              "Такої людини немає <br> в базі!</p></body></html>");
+                              "Пошук не дав результатів!</p></body></html>");
     }
     else {
     fillTable(ui->absence_tb, query);
@@ -590,12 +604,17 @@ void MainWindow::on_search_absenc_bt_clicked()
 void MainWindow::on_refresh_bt_clicked()
 {
     refreshHR();
+    ui->absence_error_lb->setText("");
+    ui->contr_error_lb->setText("");
+    ui->inter_error_lb->setText("");
+    ui->staff_error_lb->setText("");
+    ui->report_error_lb->setText("");
 }
 
 void MainWindow::on_add_pos_info_show_clicked()
 {
     QString query;
-    query = "SELECT * FROM position_info;";
+    query = "SELECT name_of_position, staff_complement, occupied, avaliable, min_salary, max_salary FROM staff_position_full_info;";
     ui->add_pos_info_tableble->setVisible(true);
     fillTable(ui->add_pos_info_tableble, query);
 }
@@ -619,4 +638,18 @@ void MainWindow::on_full_absence_info_bt_clicked()
 void MainWindow::on_full_absence_info_hide_clicked()
 {
     ui->ful_absence_info_tb->setVisible(false);
+}
+
+int MainWindow::columnResize(){
+    for (int i = 0; i < ui->contactor_table->horizontalHeader()->count(); ++i)
+    ui->contactor_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    for (int i = 0; i < ui->position_table->horizontalHeader()->count(); ++i)
+    ui->position_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    for (int i = 0; i < ui->interview_table->horizontalHeader()->count(); ++i)
+    ui->interview_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    for (int i = 0; i < ui->staff_table->horizontalHeader()->count(); ++i)
+    ui->staff_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    for (int i = 0; i < ui->absence_tb->horizontalHeader()->count(); ++i)
+    ui->absence_tb->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+    return 0;
 }

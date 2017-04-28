@@ -7,11 +7,29 @@
     <x>0</x>
     <y>0</y>
     <width>859</width>
-    <height>616</height>
+    <height>674</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>859</width>
+    <height>674</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>859</width>
+    <height>674</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>859</width>
+    <height>674</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Staff Add Winfow</string>
   </property>
   <widget class="QLabel" name="info_label">
    <property name="geometry">
@@ -69,6 +87,9 @@
    </property>
    <property name="editTriggers">
     <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
    </property>
    <column>
     <property name="text">
@@ -144,7 +165,7 @@
      <x>10</x>
      <y>530</y>
      <width>831</width>
-     <height>61</height>
+     <height>111</height>
     </rect>
    </property>
    <property name="font">

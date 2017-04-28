@@ -13,15 +13,33 @@ interviewwindow::interviewwindow(QWidget *parent, QSqlDatabase db1) : QDialog(pa
     connect( ui->cansel_button, SIGNAL( clicked() ), SLOT( reject()  ) );
    // connect(ui->position_combobox, SIGNAL(currentIndexChanged (QString), this, SLOT(comboSelectItem(QString)));
 
+    ui->search_contr_to_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
 
-    QSqlQueryModel *model = new QSqlQueryModel(this);
-    model->setQuery("SELECT name_of_position, id_position FROM position WHERE id_position IN"
-                    "(SELECT id_position FROM staffing_table WHERE total_membership < staff_complement);");
-    ui->position_cb->setModel(model);
+    for (int i = 0; i < ui->contr_to_int_table->horizontalHeader()->count(); ++i)
+    ui->contr_to_int_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+
+    QSqlQuery*  full_info_exist = new QSqlQuery;
+    full_info_exist->exec("SELECT count(*) FROM  staff_position_full_info");
+    full_info_exist->next();
+    int check = full_info_exist->value(0).toInt();
+
+    if (check == 0) {
+
+        QSqlQueryModel *model = new QSqlQueryModel(this);
+        model->setQuery("SELECT name_of_position, id_position FROM position;");
+        ui->position_cb->setModel(model);
+    }
+    else {
+        QSqlQueryModel *model = new QSqlQueryModel(this);
+        model->setQuery("SELECT name_of_position, id_position FROM position WHERE id_position IN"
+                       "(SELECT id_position FROM staff_position_full_info WHERE avaliable > 0);");
+        ui->position_cb->setModel(model);
+    }
 
     QString query;
-    query = "SELECT ph.surname, ph.name, ph.id_contractor FROM physical_person ph;";
-            //"WHERE ph.id_contractor NOT IN (SELECT i.id_contractor FROM interview i);";
+    query = "SELECT ph.surname, ph.name, ph.id_contractor FROM physical_person ph "
+            "WHERE ph.id_contractor NOT IN "
+            "(SELECT st.id_contractor FROM staff st, cadre_on_position cp WHERE st.id_staff = cp.id_staff AND cp.date_of_leaving_from_position IS NULL);";
     fillTable(ui->contr_to_int_table, query);
     ui->contr_to_int_table->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -100,18 +118,21 @@ void interviewwindow::on_interview_sort_bt_clicked()
 
 void interviewwindow::on_search_contr_to_st_bt_clicked()
 {
+    QStringList slContr;
     QString surname_search;
     QString query;
     surname_search = ui->search_contr_to_st_edit->text();
-    query = QString("SELECT DISTINCT ph.surname, ph.name, ph.id_contractor FROM physical_person ph, interview i "
-                    "WHERE ph.surname = '%1' ; ").arg(surname_search);
+    query = QString("SELECT ph.surname, ph.name, ph.id_contractor FROM physical_person ph "
+                    "WHERE ph.id_contractor NOT IN "
+                    "(SELECT st.id_contractor FROM staff st, cadre_on_position cp WHERE st.id_staff = cp.id_staff AND cp.date_of_leaving_from_position IS NULL) "
+                    "AND ph.surname ILIKE '%%1%' ; ").arg(surname_search);
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slContr << sq.value(0).toString();
-    if (!slContr.contains(surname_search)){
+    if (slContr.empty()){
         ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
-                              "Такої людини намає  <br> в базі!</p></body></html>");
+                              "Пошук не дав результатів!</p></body></html>");
     }
     else {
     fillTable(ui->contr_to_int_table, query);
@@ -122,7 +143,15 @@ void interviewwindow::on_search_contr_to_st_bt_clicked()
 void interviewwindow::on_refresh_bt_clicked()
 {
     QString query;
-    query = "SELECT DISTINCT ph.surname, ph.name, ph.id_contractor FROM physical_person ph, interview i ;";
-            //"WHERE ph.id_contractor NOT IN (SELECT i.id_contractor FROM interview i);";
+    query = "SELECT ph.surname, ph.name, ph.id_contractor FROM physical_person ph "
+            "WHERE ph.id_contractor NOT IN "
+            "(SELECT st.id_contractor FROM staff st, cadre_on_position cp WHERE st.id_staff = cp.id_staff AND cp.date_of_leaving_from_position IS NULL);";
     fillTable(ui->contr_to_int_table, query);
+}
+
+
+void interviewwindow::paintEvent(QPaintEvent *) {
+
+    ui->contr_to_int_table->setStyleSheet("background-color: transparent; border : 0 ");
+
 }

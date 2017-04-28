@@ -33,7 +33,10 @@ private:
     Ui::interviewwindow *ui;
     QSqlDatabase db;
     int fillTable(QTableWidget *, QString);
-    QStringList slContr;
+
+protected:
+     void paintEvent(QPaintEvent *);
+
 };
 
 #endif // INTERVIEWWINDOW_H

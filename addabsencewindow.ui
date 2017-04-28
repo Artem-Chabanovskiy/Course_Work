@@ -10,8 +10,26 @@
     <height>628</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>985</width>
+    <height>628</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>985</width>
+    <height>628</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>985</width>
+    <height>628</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Add Absence Window</string>
   </property>
   <widget class="QLabel" name="info_lb">
    <property name="geometry">
@@ -60,6 +78,9 @@
    <property name="editTriggers">
     <set>QAbstractItemView::NoEditTriggers</set>
    </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
    <column>
     <property name="text">
      <string>Прізвище</string>
@@ -97,8 +118,8 @@
   <widget class="QPushButton" name="cansel_bt">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>540</y>
+     <x>770</x>
+     <y>550</y>
      <width>151</width>
      <height>61</height>
     </rect>
@@ -135,26 +156,10 @@
     </property>
    </widget>
   </widget>
-  <widget class="QSplitter" name="splitter_2">
-   <property name="geometry">
-    <rect>
-     <x>210</x>
-     <y>350</y>
-     <width>201</width>
-     <height>121</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-   <widget class="QComboBox" name="absence_choose_cb"/>
-   <widget class="QDateEdit" name="start_date_edit"/>
-   <widget class="QDateEdit" name="end_date_edit"/>
-  </widget>
   <widget class="QPushButton" name="absence_sort_bt">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>230</x>
      <y>540</y>
      <width>211</width>
      <height>51</height>
@@ -190,10 +195,10 @@
   <widget class="QPushButton" name="refresh_bt">
    <property name="geometry">
     <rect>
-     <x>700</x>
-     <y>530</y>
-     <width>171</width>
-     <height>61</height>
+     <x>490</x>
+     <y>540</y>
+     <width>201</width>
+     <height>51</height>
     </rect>
    </property>
    <property name="text">
@@ -219,7 +224,7 @@
      <x>550</x>
      <y>350</y>
      <width>371</width>
-     <height>171</height>
+     <height>131</height>
     </rect>
    </property>
    <property name="font">
@@ -229,6 +234,42 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="absence_choose_cb">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>350</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="start_date_edit">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>392</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="calendarPopup">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="end_date_edit">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>435</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="calendarPopup">
+    <bool>true</bool>
    </property>
   </widget>
  </widget>

@@ -35,8 +35,11 @@ private slots:
 private:
     Ui::AddContractorToStaff *ui;
     QSqlDatabase db;
-    QStringList slContr;
+
     int fillTable(QTableWidget *, QString);
+
+protected:
+     void paintEvent(QPaintEvent *);
 };
 
 #endif // ADDCONTRACTORTOSTAFF_H

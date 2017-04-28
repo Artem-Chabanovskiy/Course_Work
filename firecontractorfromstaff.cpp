@@ -8,6 +8,11 @@ FireContractorFromStaff::FireContractorFromStaff(QWidget *parent, QSqlDatabase d
     connect( ui->cansel_bt, SIGNAL( clicked() ), SLOT( reject()  ) );
     connect(ui->fire_bt, SIGNAL (clicked()), SLOT( fireContrFromStaff()));
 
+    ui->search_contr_from_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+
+    for (int i = 0; i < ui->contr_from_staff_tb->horizontalHeader()->count(); ++i)
+    ui->contr_from_staff_tb->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+
     QString query;
     query = "SELECT st.id_staff, f.surname, f.name, f.id_contractor, p.name_of_position, p.id_position FROM physical_person AS f, position AS p, staff AS st "
             "WHERE st.id_contractor = f.id_contractor AND p.id_position = st.id_position "
@@ -72,12 +77,44 @@ int FireContractorFromStaff::fillTable(QTableWidget *tab, QString query){
     tab->resizeColumnsToContents();
     return 0;
 }
-void FireContractorFromStaff::on_cansel_bt_2_clicked()
-{
-    ui->contr_from_staff_tb->sortItems(0);
-}
+
 
 void FireContractorFromStaff::on_search_contr_from_st_bt_clicked()
 {
+    QStringList slContr;
+    QString surname_search;
+    QString query;
+    surname_search = ui->search_contr_from_st_edit->text();
+    query = QString("SELECT st.id_staff, f.surname, f.name, f.id_contractor, p.name_of_position, p.id_position FROM physical_person AS f, position AS p, staff AS st "
+                    "WHERE st.id_contractor = f.id_contractor AND p.id_position = st.id_position AND f.surname ILIKE '%%1%' "
+                    "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);").arg(surname_search);
+    QSqlQuery sq = db.exec(query);
+    while (sq.next())
+    qDebug() << query;
+        slContr << sq.value(0).toString();
+    if (slContr.empty()){
+        ui->error_lb->setText("<html><head/><body><p style=\"color:red;\">"
+                              "Помилка ! <br>"
+                              "Пошук не дав результатів!</p></body></html>");
+    }
+    else {
+    fillTable(ui->contr_from_staff_tb, query);
+    ui->error_lb->setText("");
+    }
+}
+
+void FireContractorFromStaff::on_cansel_bt_2_clicked()
+{
+    QString query;
+    query = "SELECT st.id_staff, f.surname, f.name, f.id_contractor, p.name_of_position, p.id_position FROM physical_person AS f, position AS p, staff AS st "
+            "WHERE st.id_contractor = f.id_contractor AND p.id_position = st.id_position "
+            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);";
+    qDebug() << query;
+    fillTable(ui->contr_from_staff_tb, query);
+}
+
+void FireContractorFromStaff::paintEvent(QPaintEvent *) {
+
+    ui->contr_from_staff_tb->setStyleSheet("background-color: transparent; border : 0 ");
 
 }

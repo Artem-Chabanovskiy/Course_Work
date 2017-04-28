@@ -5,6 +5,7 @@
 #include <QtSql>
 #include <QtDebug>
 #include <QTableWidget>
+#include <QSizePolicy>
 
 namespace Ui {
 class MainWindow;
@@ -73,21 +74,21 @@ private:
     QString ip = "localhost";
     int port = 5432;
     QString role;
-    QStringList slContr;
-    QStringList slInter;
-    QStringList slStaff;
-    QStringList slAbsence;
+    //QStringList slContr;
+    //QStringList slInter;
+    //QStringList slStaff;
+    //QStringList slAbsence;
     //int user_type;
 
     QString getRole();
     int connectUser();
     int showLoginWindow();
-    int initManager();
     int initHR();
     int initInspector();
     int initInterviewer();
     int refreshHR();
     int fillTable(QTableWidget *, QString);
+    int columnResize();
 
 
 

@@ -34,7 +34,11 @@ private:
     Ui::AddAbsenceWindow *ui;
     QSqlDatabase db;
     int fillTable(QTableWidget *, QString);
-    QStringList slContr;
+
+
+protected:
+     void paintEvent(QPaintEvent *);
+
 };
 
 #endif // ADDABSENCEWINDOW_H

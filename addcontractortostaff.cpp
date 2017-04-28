@@ -9,14 +9,35 @@ AddContractorToStaff::AddContractorToStaff(QWidget *parent, QSqlDatabase db1) : 
     connect( ui->cansel_bt, SIGNAL( clicked() ), SLOT( reject()  ) );
     connect(ui->add_to_staff_last_bt, SIGNAL (clicked()), SLOT( pushContrToStaff()));
 
+    ui->search_contr_to_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+
+
+    for (int i = 0; i < ui->contr_to_staff_table->horizontalHeader()->count(); ++i)
+    ui->contr_to_staff_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+
+    QSqlQuery*  full_info_exist = new QSqlQuery;
+    full_info_exist->exec("SELECT count(*) FROM  staff_position_full_info");
+    full_info_exist->next();
+    int check = full_info_exist->value(0).toInt();
+
+    if (check == 0) {
+        QString query;
+        query = "SELECT f.surname, f.name, f.id_contractor, p.name_of_position, p.id_position FROM physical_person AS f, position AS p, interview AS i "
+                "WHERE i.id_contractor = f.id_contractor AND p.id_position = i.id_position AND i.result = 'Розглядається' "
+                "AND f.id_contractor NOT IN (SELECT st.id_contractor FROM staff st, cadre_on_position cp "
+                "WHERE st.id_staff = cp.id_staff AND cp.date_of_leaving_from_position IS NULL) ;";
+        fillTable(ui->contr_to_staff_table, query);
+    } else {
+
     QString query;
     query = "SELECT f.surname, f.name, f.id_contractor, p.name_of_position, p.id_position FROM physical_person AS f, position AS p, interview AS i "
             "WHERE i.id_contractor = f.id_contractor AND p.id_position = i.id_position AND i.result = 'Розглядається' "
-            "AND p.id_position IN (SELECT id_position FROM staffing_table WHERE total_membership < staff_complement) "
-            "AND f.id_contractor NOT IN (SELECT st.id_contractor FROM staff st "
-            "WHERE st.id_staff NOT IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL));";
-    qDebug() << query;
+            "AND p.id_position IN (SELECT id_position FROM staff_position_full_info WHERE avaliable > 0) "
+            "AND f.id_contractor NOT IN (SELECT st.id_contractor FROM staff st, cadre_on_position cp "
+            "WHERE st.id_staff = cp.id_staff AND cp.date_of_leaving_from_position IS NULL) ;";
     fillTable(ui->contr_to_staff_table, query);
+    }
+
     ui->contr_to_staff_table->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->contr_to_staff_table->setColumnHidden(2, true);
@@ -82,17 +103,18 @@ int AddContractorToStaff::pushContrToStaff(){
         query_function = QString("SELECT ""add_contractor_to_staff""('%1', '%2', '%3');")
                 .arg(id_contr, id_position, staff_salary_str);
         qDebug() << query_function;
+        qDebug() << db.lastError();
         QSqlQuery*  query = new QSqlQuery;
         query->exec(query_function);
         qDebug() << query->lastError();
         AddContractorToStaff::close();
-        return 0;
+
     } else {
         ui->error_lb_2->setText("<html><head/><body><p style=\"color:red;\">"
                                                                "Помилка !"
                                                                "Некорректна зарплата!</p></body></html>");
     }
-
+     return 0;
 
 }
 
@@ -103,21 +125,22 @@ void AddContractorToStaff::on_addcontr_sort_bt_clicked()
 
 void AddContractorToStaff::on_search_contr_to_st_bt_clicked()
 {
+    QStringList slContr;
     QString surname_search;
     QString query;
     surname_search = ui->search_contr_to_st_edit->text();
     query = QString("SELECT f.surname, f.name, f.id_contractor, p.name_of_position FROM physical_person AS f, position AS p, interview AS i "
                     "WHERE i.id_contractor = f.id_contractor "
                     "AND p.id_position = i.id_position AND i.result ='Розглядається' "
-                    "AND p.id_position IN (SELECT id_position FROM staffing_table WHERE total_membership < staff_complement) "
-                    "AND f.surname = '%1';").arg(surname_search);
+                    "AND p.id_position IN (SELECT id_position FROM staff_position_full_info WHERE avaliable > 0) "
+                    "AND f.surname ILIKE '%%1%';").arg(surname_search);
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slContr << sq.value(0).toString();
-    if (!slContr.contains(surname_search)){
+    if (slContr.empty()){
         ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
-                              "Така людина не проходила <br> співбесіду!</p></body></html>");
+                              "Пошук не дав результатів!</p></body></html>");
     }
     else {
     fillTable(ui->contr_to_staff_table, query);
@@ -130,7 +153,7 @@ void AddContractorToStaff::on_refresh_bt_clicked()
     QString query;
     query = "SELECT f.surname, f.name, f.id_contractor, p.name_of_position, p.id_position FROM physical_person AS f, position AS p, interview AS i "
             "WHERE i.id_contractor = f.id_contractor AND p.id_position = i.id_position AND i.result = 'Розглядається' "
-            "AND p.id_position IN (SELECT id_position FROM staffing_table WHERE total_membership < staff_complement);";
+            "AND p.id_position IN (SELECT id_position FROM staff_position_full_info WHERE avaliable > 0);";
     fillTable(ui->contr_to_staff_table, query);
 }
 
@@ -226,5 +249,11 @@ void AddContractorToStaff::on_return_bt_clicked()
     ui->cont_to_staff_name_lb->setVisible(false);
     ui->staff_posit_lb->setVisible(false);
     ui->return_bt->setVisible(false);
+
+}
+
+void AddContractorToStaff::paintEvent(QPaintEvent *) {
+
+    ui->contr_to_staff_table->setStyleSheet("background-color: transparent; border : 0 ");
 
 }

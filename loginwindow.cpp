@@ -4,16 +4,18 @@
 #include <QDialog>
 #include <QDesktopWidget>
 #include <QLineEdit>
+#include <QtCore>
+#include <QDebug>
 
 
 /*LoginWindow::LoginWindow(QWidget *parent) :QWidget(parent), ui(new Ui::LoginWindow){
     ui->setupUi(this);
 }*/
 
-LoginWindow::LoginWindow(QWidget *parent, QString El) :QDialog(parent), ui(new Ui::LoginWindow) {
+LoginWindow::LoginWindow(QWidget *parent) :QDialog(parent), ui(new Ui::LoginWindow) {
     setModal(true);
     ui->setupUi(this);
-    ui->error_label->setText(El);
+    //ui->error_label->setText(El);
 
     connect( ui->enter_button, SIGNAL( clicked() ), SLOT( accept() ) );
     connect( ui->exit_button, SIGNAL( clicked() ), SLOT( reject()  ) );
@@ -32,7 +34,6 @@ LoginWindow::LoginWindow(QWidget *parent, QString El) :QDialog(parent), ui(new U
     center.setX(x);
     center.setY(y);
     this->move(center);
-
 }
 
 LoginWindow::~LoginWindow() {
@@ -47,6 +48,16 @@ QString LoginWindow::getPw() {
     return ui->password_edit->text();
 }
 
+void LoginWindow::set_error() {
+
+    ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
+                             "Помилка доступу! <br>"
+                             "Такого користувача немає в БД!</p></body></html>");
+    ui->password_edit->setText("");
+    ui->login_edit->setText("");
+}
+
+
 /*QString LoginWindow::getIP(){
     return ui->ip_edit->text();
 }
@@ -60,13 +71,13 @@ QString LoginWindow::getPort() {
 
 
 void LoginWindow::paintEvent(QPaintEvent *) {
-    QImage img("C:/megan_2.png");
+    /*QImage img("C:/megan_2.png");
     QPainter painter(this);
     painter.drawImage(0,0, img.scaled(this->size()));
     //ui->name_label->setStyleSheet("color: rgb(255,000,000)");
     //ui->logwin_label->setStyleSheet("color: rgb(255,000,000)")
     ui->log_label->setStyleSheet("color: rgb(255,250,250)");
-    ui->pass_label->setStyleSheet("color: rgb(255,250,250)");
+    ui->pass_label->setStyleSheet("color: rgb(255,250,250)");*/
   //  ui->ip_label->setStyleSheet("color: rgb(255,250,250)");
   //  ui->port_label->setStyleSheet("color: rgb(255,250,250)");
    // ui->type_label->setStyleSheet("color: rgb(255,250,250)");

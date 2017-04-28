@@ -1,6 +1,7 @@
 #include "addposition.h"
 #include "ui_addposition.h"
 #include <QDialog>
+#include <QString>
 
 AddPosition::AddPosition(QWidget *parent, QSqlDatabase db1) :
     QDialog(parent),
@@ -29,22 +30,30 @@ int AddPosition::add_position(){
     name_position = ui->position_name_edit->text();
     min_payment = ui->position_salary_min_edit->text();
     max_payment = ui->position_salary_max_edit->text();
-    staff_compl = ui->staff_complement_edit->text();
-    query_function = QString("SELECT ""add_position""('%1', '%2', '%3', '%4');")
-            .arg(name_position, min_payment, max_payment, staff_compl);
-    qDebug() << query_function;
-    QSqlQuery*  query = new QSqlQuery;
-    query->exec(query_function);
-    qDebug() << query->lastError();
-    if (query->lastError().isValid()) {
-    ui->error_label->setStyleSheet("QLabel { color : red; }");
-    std::string s = query->lastError().text().toUtf8().constData();;
-    s = s.substr(0,s.find("(P0001)"));
-    ui->error_label->setWordWrap(true);
-    ui->error_label->setText(QString::fromUtf8(s.c_str()));
+    if (min_payment.length() >= 8 || max_payment.length() >= 8) {
+        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
+                                 "ERROR: "
+                                 "Некоректо введено дані про зарплату!</p></body></html>");
     }
     else {
-       AddPosition::close();
+        staff_compl = ui->staff_complement_edit->text();
+        query_function = QString("SELECT ""add_position""('%1', '%2', '%3', '%4');")
+                .arg(name_position, min_payment, max_payment, staff_compl);
+        qDebug() << query_function;
+        qDebug() << db.lastError();
+        QSqlQuery*  query = new QSqlQuery;
+        query->exec(query_function);
+        qDebug() << query->lastError();
+        if (query->lastError().isValid()) {
+        ui->error_label->setStyleSheet("QLabel { color : red; }");
+        std::string s = query->lastError().text().toUtf8().constData();;
+        s = s.substr(0,s.find("(P0001)"));
+        ui->error_label->setWordWrap(true);
+        ui->error_label->setText(QString::fromUtf8(s.c_str()));
+        }
+        else {
+           AddPosition::close();
+        }
+        return 0;
     }
-    return 0;
 }

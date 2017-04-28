@@ -11,6 +11,11 @@ RejectConrInterview::RejectConrInterview(QWidget *parent, QSqlDatabase db1) :QDi
     connect( ui->cansel_bt, SIGNAL( clicked() ), SLOT( reject()  ) );
     connect( ui->contr_reject_bt,   SIGNAL( clicked() ), SLOT( ContrRejectInt()));
 
+    ui->search_contr_to_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+
+    for (int i = 0; i < ui->contr_reject_tb->horizontalHeader()->count(); ++i)
+    ui->contr_reject_tb->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+
     QString query;
     query = "SELECT a.surname, a.name, p.name_of_position, i.id_interview "
             "FROM physical_person a, position p, interview i "
@@ -72,4 +77,43 @@ int RejectConrInterview::fillTable(QTableWidget *tab, QString query){
     while (sq.next());
     tab->resizeColumnsToContents();
     return 0;
+}
+
+void RejectConrInterview::on_search_contr_to_st_bt_clicked()
+{
+    QStringList slContr;
+    QString surname_search;
+    QString query;
+    surname_search = ui->search_contr_to_st_edit->text();
+    query = QString("SELECT a.surname, a.name, p.name_of_position, i.id_interview "
+                    "FROM physical_person a, position p, interview i "
+                    "WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position AND i.result = 'Розглядається' AND ph.surname ILIKE '%%1%';").arg(surname_search);
+    QSqlQuery sq = db.exec(query);
+    while (sq.next())
+        slContr << sq.value(0).toString();
+    if (slContr.empty()){
+        ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
+                              "Помилка ! <br>"
+                              "Пошук не дав результатів!</p></body></html>");
+    }
+    else {
+    fillTable(ui->contr_reject_tb, query);
+    ui->error_label->setText("");
+    }
+}
+
+void RejectConrInterview::on_refresh_bt_clicked()
+{
+    QString query;
+    query = "SELECT a.surname, a.name, p.name_of_position, i.id_interview "
+            "FROM physical_person a, position p, interview i "
+            "WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position AND i.result = 'Розглядається';";
+    qDebug() << query;
+    fillTable(ui->contr_reject_tb, query);
+}
+
+void RejectConrInterview::paintEvent(QPaintEvent *) {
+
+    ui->contr_reject_tb->setStyleSheet("background-color: transparent; border : 0 ");
+
 }

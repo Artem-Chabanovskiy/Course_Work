@@ -11,6 +11,11 @@ moveposotionwindow::moveposotionwindow(QWidget *parent, QSqlDatabase db1) :QDial
     connect( ui->move_button,   SIGNAL( clicked() ), SLOT( moveStaff()));
     connect( ui->position_cb, SIGNAL(currentTextChanged(QString)), SLOT( salary_input()));
 
+    ui->search_contr_to_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+
+    for (int i = 0; i < ui->contr_move_po_tb->horizontalHeader()->count(); ++i)
+    ui->contr_move_po_tb->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
+
     QString query;
     query = "SELECT ph.surname, ph.name, ph.id_contractor, p.name_of_position "
             "FROM physical_person AS ph, position AS p, staff AS st "
@@ -25,7 +30,7 @@ moveposotionwindow::moveposotionwindow(QWidget *parent, QSqlDatabase db1) :QDial
 
      QSqlQueryModel *model = new QSqlQueryModel(this);
      model->setQuery("SELECT name_of_position FROM position WHERE id_position IN"
-                     "(SELECT id_position FROM staffing_table WHERE total_membership < staff_complement);");
+                     "(SELECT id_position FROM staff_position_full_info WHERE avaliable > 0);");
      ui->position_cb->setModel(model);
 }
 
@@ -66,14 +71,14 @@ int moveposotionwindow::moveStaff(){
         qDebug() << db.lastError();
         //query = QString("")
         moveposotionwindow::close();
-        return 0;
+
     }
     else {
         ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
                               "Некорректна з/п!</p></body></html>");
     }
-
+    return 0;
 }
 
 int moveposotionwindow::salary_input() {
@@ -131,20 +136,21 @@ void moveposotionwindow::on_position_move_sort_bt_clicked()
 
 void moveposotionwindow::on_search_contr_to_st_bt_clicked()
 {
+    QStringList slContr;
     QString surname_search;
     QString query;
     surname_search = ui->search_contr_to_st_edit->text();
     query = QString("SELECT ph.surname, ph.name, ph.identificational_code, p.name_of_position "
                     "FROM physical_person AS ph, position AS p, staff AS st "
                     "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position "
-                    "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL), AND ph.surname = '%1';").arg(surname_search);
+                    "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL), AND ph.surname ILIKE '%%1%';").arg(surname_search);
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slContr << sq.value(0).toString();
-    if (!slContr.contains(surname_search)){
+    if (slContr.empty()){
         ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
-                              "Такої людини намає  <br> в базі!</p></body></html>");
+                              "Пошук не дав результатів!</p></body></html>");
     }
     else {
     fillTable(ui->contr_move_po_tb, query);
@@ -161,4 +167,11 @@ void moveposotionwindow::on_refresh_bt_clicked()
             "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);";
     qDebug() << query;
     fillTable(ui->contr_move_po_tb, query);
+}
+
+
+void moveposotionwindow::paintEvent(QPaintEvent *) {
+
+    ui->contr_move_po_tb->setStyleSheet("background-color: transparent; border : 0 ");
+
 }

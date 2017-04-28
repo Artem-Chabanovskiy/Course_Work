@@ -34,7 +34,10 @@ private:
     Ui::moveposotionwindow *ui;
     QSqlDatabase db;
     int fillTable(QTableWidget *, QString);
-    QStringList slContr;
+
+protected:
+     void paintEvent(QPaintEvent *);
+
 };
 
 #endif // MOVEPOSOTIONWINDOW_H
