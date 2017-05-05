@@ -9,11 +9,12 @@
 #include "addcontractortostaff.h"
 #include "addabsencewindow.h"
 #include "firecontractorfromstaff.h"
+#include "rejectconrinterview.h"
 #include "ncreport.h"
 #include "ncreportoutput.h"
 #include "ncreportpreviewoutput.h"
 #include "ncreportpreviewwindow.h"
-#include "rejectconrinterview.h"
+
 
 
 #include <QResource>
@@ -115,6 +116,7 @@ int MainWindow::initHR(){
     ui->ful_absence_info_tb->setVisible(false);
     ui->full_absence_info_bt->setVisible(false);
     ui->full_absence_info_hide->setVisible(false);
+    ui->add_contr_bt->setVisible(false);
     //skruvaem kovonki c idishnikami
     ui->contactor_table->setColumnHidden(7, true);
     ui->interview_table->setColumnHidden(3, true);
@@ -227,7 +229,7 @@ int MainWindow::refreshHR(){
             "FROM physical_person a, position p, interview i "
             "WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position;";
     fillTable(ui->interview_table, query);
-    query = "SELECT a.surname AS surname, a.name AS name, a.id_contractor AS idc, p.name_of_position AS position, cp.cadre_salary AS salary "
+    query = "SELECT a.surname AS surname, a.name AS name, a.id_contractor AS idc, p.name_of_position AS position, cp.cadre_salary AS salary, cp.effective_date_of_the_position AS start_date "
             "FROM physical_person a, position p, staff st, cadre_on_position cp "
             "WHERE a.id_contractor = st.id_contractor AND p.id_position = st.id_position "
             "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL) "
@@ -376,31 +378,7 @@ int MainWindow::fillTable(QTableWidget *tab, QString query){
 
 void MainWindow::paintEvent(QPaintEvent *) {
 
-    /*ui->info_label1->setStyleSheet("background-color: gray ");
-    ui->info_label2->setStyleSheet("background-color: gray ");
-    ui->search_contr_lb->setStyleSheet("background-color: gray ");
-    ui->search_absence->setStyleSheet("background-color: gray ");
-    ui->search_inter_lb->setStyleSheet("background-color: gray ");
-    ui->search_staff_lb->setStyleSheet("background-color: gray ");
-    ui->full_absence_info_lb->setStyleSheet("background-color: gray ");
 
-    if (role == "staff_manager") {
-        QImage img("C:/eva.png");
-        QPainter painter(this);
-        painter.drawImage(0,0, img.scaled(this->size()));
-    }
-
-    if (role == "inspector") {
-        QImage img("C:/eva_2.png");
-        QPainter painter(this);
-        painter.drawImage(0,0, img.scaled(this->size()));
-    }
-
-    if (role == "interviewer") {
-        QImage img("C:/eva_3.png");
-        QPainter painter(this);
-        painter.drawImage(0,0, img.scaled(this->size()));
-    }*/
     ui->position_table->setStyleSheet("background-color: transparent; border : 0 ");
     ui->interview_table->setStyleSheet("background-color: transparent; border : 0 ");
     ui->contactor_table->setStyleSheet("background-color: transparent; border : 0 ");

@@ -2,6 +2,7 @@
 #include "ui_addabsencewindow.h"
 #include <QItemSelectionModel>
 #include <string>
+#include <QDate>
 
 AddAbsenceWindow::AddAbsenceWindow (QWidget *parent, QSqlDatabase db1) : QDialog(parent), ui(new Ui::AddAbsenceWindow) {
     db = db1;
@@ -10,6 +11,10 @@ AddAbsenceWindow::AddAbsenceWindow (QWidget *parent, QSqlDatabase db1) : QDialog
     connect( ui->add_absence_bt, SIGNAL (clicked() ), SLOT( AddAbsence() ) );
 
     ui->search_contr_to_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
+    QDate date = QDate::currentDate();
+    ui->start_date_edit->setDate(date);
+    ui->end_date_edit->setDate(date);
+    //->end_date_edit->setDate(Qt::DefaultLocaleShortDate);
 
     for (int i = 0; i < ui->contr_absence_tb->horizontalHeader()->count(); ++i)
     ui->contr_absence_tb->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
@@ -18,7 +23,7 @@ AddAbsenceWindow::AddAbsenceWindow (QWidget *parent, QSqlDatabase db1) : QDialog
     query = "SELECT ph.surname, ph.name, p.name_of_position, ph.id_contractor "
             "FROM physical_person AS ph, staff AS st, position AS p "
             "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position "
-            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);";
+            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL AND effective_date_of_the_position <= current_date);";
     qDebug() << query;
     fillTable(ui->contr_absence_tb, query);
     ui->contr_absence_tb->setSelectionBehavior(QAbstractItemView::SelectRows);

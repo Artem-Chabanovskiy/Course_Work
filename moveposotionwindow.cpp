@@ -20,7 +20,7 @@ moveposotionwindow::moveposotionwindow(QWidget *parent, QSqlDatabase db1) :QDial
     query = "SELECT ph.surname, ph.name, ph.id_contractor, p.name_of_position "
             "FROM physical_person AS ph, position AS p, staff AS st "
             "WHERE ph.id_contractor = st.id_contractor AND p.id_position = st.id_position "
-            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);";
+            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL AND effective_date_of_the_position <= current_date);";
     qDebug() << query;
     fillTable(ui->contr_move_po_tb, query);
 

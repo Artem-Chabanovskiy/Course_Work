@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     addcontractortostaff.cpp \
     addabsencewindow.cpp \
     firecontractorfromstaff.cpp \
-    rejectconrinterview.cpp
+    rejectconrinterview.cpp \
+    add_contr_from_interview.cpp
 
 HEADERS  += mainwindow.h \
     loginwindow.h \
@@ -53,7 +54,8 @@ HEADERS  += mainwindow.h \
     addcontractortostaff.h \
     addabsencewindow.h \
     firecontractorfromstaff.h \
-    rejectconrinterview.h
+    rejectconrinterview.h \
+    add_contr_from_interview.h
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \
@@ -64,4 +66,5 @@ FORMS    += mainwindow.ui \
     addcontractortostaff.ui \
     addabsencewindow.ui \
     firecontractorfromstaff.ui \
-    rejectconrinterview.ui
+    rejectconrinterview.ui \
+    add_contr_from_interview.ui

@@ -16,7 +16,7 @@ FireContractorFromStaff::FireContractorFromStaff(QWidget *parent, QSqlDatabase d
     QString query;
     query = "SELECT st.id_staff, f.surname, f.name, f.id_contractor, p.name_of_position, p.id_position FROM physical_person AS f, position AS p, staff AS st "
             "WHERE st.id_contractor = f.id_contractor AND p.id_position = st.id_position "
-            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL);";
+            "AND st.id_staff IN (SELECT id_staff FROM cadre_on_position WHERE date_of_leaving_from_position IS NULL AND effective_date_of_the_position <= current_date);";
     qDebug() << query;
     fillTable(ui->contr_from_staff_tb, query);
     ui->contr_from_staff_tb->setSelectionBehavior(QAbstractItemView::SelectRows);

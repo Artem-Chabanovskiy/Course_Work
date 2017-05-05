@@ -11,6 +11,9 @@ AddContractorToStaff::AddContractorToStaff(QWidget *parent, QSqlDatabase db1) : 
 
     ui->search_contr_to_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
 
+    QDate date = QDate::currentDate();
+    ui->date_start_edit->setDate(date);
+
 
     for (int i = 0; i < ui->contr_to_staff_table->horizontalHeader()->count(); ++i)
     ui->contr_to_staff_table->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
@@ -44,6 +47,8 @@ AddContractorToStaff::AddContractorToStaff(QWidget *parent, QSqlDatabase db1) : 
     ui->contr_to_staff_table->setColumnHidden(4, true);
     ui->salary_edit->setValidator(new QRegExpValidator(QRegExp("[0-9]+"), this));
 
+    //ui->date_start_edit->setDate(sysdate);
+
     ui->add_to_staff_last_bt->setVisible(false);
     ui->min_info_lb->setVisible(false);
     ui->max_info_lb->setVisible(false);
@@ -51,6 +56,8 @@ AddContractorToStaff::AddContractorToStaff(QWidget *parent, QSqlDatabase db1) : 
     ui->inp_info_lb->setVisible(false);
     ui->min_sal_lb->setVisible(false);
     ui->max_sal_lb->setVisible(false);
+    ui->date_info_lb->setVisible(false);
+    ui->date_start_edit->setVisible(false);
     ui->cont_to_staff_lb_1->setVisible(false);
     ui->cont_to_staff_lb_2->setVisible(false);
     ui->cont_to_staff_sur_lb->setVisible(false);
@@ -96,18 +103,27 @@ int AddContractorToStaff::pushContrToStaff(){
     int max_sal = ui->max_sal_lb->text().toInt();
     int min_sal = ui->min_sal_lb->text().toInt();
     int staff_salary = ui->salary_edit->text().toInt();
+    QString date_start = ui->date_start_edit->text();
     QString staff_salary_str = ui->salary_edit->text();
 
     if (staff_salary <= max_sal && staff_salary >= min_sal) {
         QString query_function;
-        query_function = QString("SELECT ""add_contractor_to_staff""('%1', '%2', '%3');")
-                .arg(id_contr, id_position, staff_salary_str);
+        query_function = QString("SELECT ""add_contractor_to_staff""('%1', '%2', '%3', '%4');")
+                .arg(id_contr, id_position, staff_salary_str, date_start);
         qDebug() << query_function;
         qDebug() << db.lastError();
         QSqlQuery*  query = new QSqlQuery;
         query->exec(query_function);
-        qDebug() << query->lastError();
+        if (query->lastError().isValid()) {
+        ui->error_lb_2->setStyleSheet("QLabel { color : red; }");
+        std::string s = query->lastError().text().toUtf8().constData();;
+        s = s.substr(0,s.find("(P0001)"));
+        ui->error_lb_2->setWordWrap(true);
+        ui->error_lb_2->setText(QString::fromUtf8(s.c_str()));
+        } else {
+        //qDebug() << query->lastError();
         AddContractorToStaff::close();
+        }
 
     } else {
         ui->error_lb_2->setText("<html><head/><body><p style=\"color:red;\">"
@@ -181,6 +197,8 @@ void AddContractorToStaff::on_add_to_staff_first_bt_clicked()
     ui->add_to_staff_last_bt->setVisible(true);
     ui->min_info_lb->setVisible(true);
     ui->max_info_lb->setVisible(true);
+    ui->date_info_lb->setVisible(true);
+    ui->date_start_edit->setVisible(true);
     ui->salary_edit->setVisible(true);
     ui->inp_info_lb->setVisible(true);
     ui->min_sal_lb->setVisible(true);
@@ -243,6 +261,8 @@ void AddContractorToStaff::on_return_bt_clicked()
     ui->inp_info_lb->setVisible(false);
     ui->min_sal_lb->setVisible(false);
     ui->max_sal_lb->setVisible(false);
+    ui->date_info_lb->setVisible(false);
+    ui->date_start_edit->setVisible(false);
     ui->cont_to_staff_lb_1->setVisible(false);
     ui->cont_to_staff_lb_2->setVisible(false);
     ui->cont_to_staff_sur_lb->setVisible(false);

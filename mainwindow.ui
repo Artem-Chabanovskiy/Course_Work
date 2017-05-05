@@ -86,7 +86,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="contractors">
      <attribute name="title">
@@ -458,7 +458,7 @@
        <rect>
         <x>180</x>
         <y>20</y>
-        <width>721</width>
+        <width>1001</width>
         <height>381</height>
        </rect>
       </property>
@@ -535,7 +535,7 @@
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>651</width>
+        <width>941</width>
         <height>391</height>
        </rect>
       </property>
@@ -565,6 +565,11 @@
       <column>
        <property name="text">
         <string>Зарплата (грн)</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Дата виходу на посаду</string>
        </property>
       </column>
      </widget>
@@ -597,8 +602,8 @@
      <widget class="QWidget" name="layoutWidget_2">
       <property name="geometry">
        <rect>
-        <x>690</x>
-        <y>20</y>
+        <x>960</x>
+        <y>30</y>
         <width>271</width>
         <height>141</height>
        </rect>
@@ -626,9 +631,9 @@
      <widget class="QLabel" name="staff_error_lb">
       <property name="geometry">
        <rect>
-        <x>880</x>
-        <y>230</y>
-        <width>331</width>
+        <x>960</x>
+        <y>200</y>
+        <width>281</width>
         <height>81</height>
        </rect>
       </property>

@@ -29,6 +29,12 @@ private slots:
 
     void on_refresh_bt_clicked();
 
+    void on_add_button_clicked();
+
+    void on_cansel_button_2_clicked();
+
+    void on_add_contr_clicked();
+
 private:
     Ui::interviewwindow *ui;
     QSqlDatabase db;
@@ -36,6 +42,10 @@ private:
 
 protected:
      void paintEvent(QPaintEvent *);
+
+protected slots:
+     int add_contractor();
+     int add_contractor_and_int_do();
 
 };
 

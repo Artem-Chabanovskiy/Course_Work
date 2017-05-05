@@ -54,7 +54,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>310</y>
+     <y>360</y>
      <width>141</width>
      <height>61</height>
     </rect>
@@ -312,7 +312,7 @@
    <property name="geometry">
     <rect>
      <x>340</x>
-     <y>310</y>
+     <y>360</y>
      <width>191</width>
      <height>61</height>
     </rect>
@@ -426,6 +426,47 @@
     <string>dolzhnost</string>
    </property>
   </widget>
+  <widget class="QLabel" name="date_info_lb">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>300</y>
+     <width>281</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Дата початку роботи :</string>
+   </property>
+  </widget>
+  <widget class="QDateEdit" name="date_start_edit">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>300</y>
+     <width>110</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="dateTime">
+    <datetime>
+     <hour>0</hour>
+     <minute>0</minute>
+     <second>0</second>
+     <year>2017</year>
+     <month>4</month>
+     <day>29</day>
+    </datetime>
+   </property>
+   <property name="calendarPopup">
+    <bool>true</bool>
+   </property>
+  </widget>
   <zorder>info_label</zorder>
   <zorder>cansel_bt</zorder>
   <zorder>contr_to_staff_table</zorder>
@@ -448,6 +489,8 @@
   <zorder>cont_to_staff_name_lb</zorder>
   <zorder>cont_to_staff_lb_2</zorder>
   <zorder>staff_posit_lb</zorder>
+  <zorder>date_info_lb</zorder>
+  <zorder>date_start_edit</zorder>
  </widget>
  <resources/>
  <connections/>
