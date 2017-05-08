@@ -8,14 +8,19 @@
 RejectConrInterview::RejectConrInterview(QWidget *parent, QSqlDatabase db1) :QDialog(parent), ui(new Ui::RejectConrInterview) {
     ui->setupUi(this);
     db = db1;
+
+    //connecting buttons to slots
     connect( ui->cansel_bt, SIGNAL( clicked() ), SLOT( reject()  ) );
     connect( ui->contr_reject_bt,   SIGNAL( clicked() ), SLOT( ContrRejectInt()));
 
+    //validators
     ui->search_contr_to_st_edit->setValidator(new QRegExpValidator(QRegExp("[A-Za-zА-Яа-яі]+"), this));
 
+    //stretching table
     for (int i = 0; i < ui->contr_reject_tb->horizontalHeader()->count(); ++i)
     ui->contr_reject_tb->horizontalHeader()->setSectionResizeMode(i, QHeaderView::Stretch);
 
+    //filling table
     QString query;
     query = "SELECT a.surname, a.name, p.name_of_position, i.id_interview "
             "FROM physical_person a, position p, interview i "
@@ -23,24 +28,27 @@ RejectConrInterview::RejectConrInterview(QWidget *parent, QSqlDatabase db1) :QDi
     qDebug() << query;
     fillTable(ui->contr_reject_tb, query);
 
+    //configuring table
     ui->contr_reject_tb->setColumnHidden(3, true);
     ui->contr_reject_tb->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
-RejectConrInterview::~RejectConrInterview()
-{
+RejectConrInterview::~RejectConrInterview() {
     delete ui;
 }
 
 int RejectConrInterview::ContrRejectInt() {
+
     QString query;
+
     QItemSelectionModel *selectionModel = ui->contr_reject_tb->selectionModel();
     QModelIndexList selectedRows = selectionModel->selectedRows();
 
+    //check, if there is one selectes row
     if (selectedRows.size() != 1) {
         ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
-                              "Помилка ! <br>"
-                              "Оберіть одного контрагента!</p></body></html>");
+                              "Error ! <br>"
+                              "Choose one person!</p></body></html>");
     }
     else {
         int i = ui->contr_reject_tb->currentRow();
@@ -48,19 +56,17 @@ int RejectConrInterview::ContrRejectInt() {
         query = QString("UPDATE interview "
                         "SET result = 'Відхилено' "
                         "WHERE id_interview = '%1' ;").arg(inter_id);
-        qDebug() << query;
         db.exec(query);
-        qDebug() << db.lastError();
         RejectConrInterview::close();
     }
     return 0;
 
 }
 
+
 int RejectConrInterview::fillTable(QTableWidget *tab, QString query){
 
     QSqlQuery sq = db.exec(query);
-    qDebug() << sq.lastError();
     int nc = tab->columnCount();
     tab->setRowCount(sq.size());
     sq.first();
@@ -79,18 +85,22 @@ int RejectConrInterview::fillTable(QTableWidget *tab, QString query){
     return 0;
 }
 
-void RejectConrInterview::on_search_contr_to_st_bt_clicked()
-{
+//searching by surname
+void RejectConrInterview::on_search_contr_to_st_bt_clicked() {
     QStringList slContr;
     QString surname_search;
     QString query;
+
     surname_search = ui->search_contr_to_st_edit->text();
     query = QString("SELECT a.surname, a.name, p.name_of_position, i.id_interview "
                     "FROM physical_person a, position p, interview i "
                     "WHERE a.id_contractor = i.id_contractor AND p.id_position = i.id_position AND i.result = 'Розглядається' AND ph.surname ILIKE '%%1%';").arg(surname_search);
+
     QSqlQuery sq = db.exec(query);
     while (sq.next())
         slContr << sq.value(0).toString();
+
+     //if query returns null
     if (slContr.empty()){
         ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
                               "Помилка ! <br>"
@@ -102,8 +112,8 @@ void RejectConrInterview::on_search_contr_to_st_bt_clicked()
     }
 }
 
-void RejectConrInterview::on_refresh_bt_clicked()
-{
+//refreshing table
+void RejectConrInterview::on_refresh_bt_clicked() {
     QString query;
     query = "SELECT a.surname, a.name, p.name_of_position, i.id_interview "
             "FROM physical_person a, position p, interview i "
@@ -112,8 +122,7 @@ void RejectConrInterview::on_refresh_bt_clicked()
     fillTable(ui->contr_reject_tb, query);
 }
 
+//making table transparent
 void RejectConrInterview::paintEvent(QPaintEvent *) {
-
     ui->contr_reject_tb->setStyleSheet("background-color: transparent; border : 0 ");
-
 }

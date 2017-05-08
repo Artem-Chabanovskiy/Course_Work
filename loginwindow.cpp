@@ -8,29 +8,27 @@
 #include <QDebug>
 
 
-/*LoginWindow::LoginWindow(QWidget *parent) :QWidget(parent), ui(new Ui::LoginWindow){
-    ui->setupUi(this);
-}*/
-
 LoginWindow::LoginWindow(QWidget *parent) :QDialog(parent), ui(new Ui::LoginWindow) {
+
     setModal(true);
     ui->setupUi(this);
-    //ui->error_label->setText(El);
 
+    //connecting buttons to slot
     connect( ui->enter_button, SIGNAL( clicked() ), SLOT( accept() ) );
     connect( ui->exit_button, SIGNAL( clicked() ), SLOT( reject()  ) );
 
+    //setting existing username and name for testing
     ui->login_edit->setText("staff_manager_1");
     ui->password_edit->setText("stfmng_1");
-    ui->password_edit->setEchoMode(QLineEdit::Password);
-    //ui->ip_edit->setText("localhost");
-    //ui->port_edit->setText("5432");
 
+    ui->password_edit->setEchoMode(QLineEdit::Password);
+
+    //setting loginwindow to the centre of the screen
     QDesktopWidget desktop;
-    QRect rect = desktop.availableGeometry(desktop.primaryScreen()); // прямоугольник с размерами экрана
-    QPoint center = rect.center(); //координаты центра экрана
-    int x = center.x() - (this->width()/2);  // учитываем половину ширины окна
-    int y = center.y() - (this->height()/2); // .. половину высоты
+    QRect rect = desktop.availableGeometry(desktop.primaryScreen());
+    QPoint center = rect.center();
+    int x = center.x() - (this->width()/2);
+    int y = center.y() - (this->height()/2);
     center.setX(x);
     center.setY(y);
     this->move(center);
@@ -40,6 +38,7 @@ LoginWindow::~LoginWindow() {
     delete ui;
 }
 
+//getting data about user
 QString LoginWindow::getLogin() {
     return ui->login_edit->text();
 }
@@ -48,40 +47,23 @@ QString LoginWindow::getPw() {
     return ui->password_edit->text();
 }
 
+//setting error, if wrong login or password
 void LoginWindow::set_error() {
 
     ui->error_label->setText("<html><head/><body><p style=\"color:red;\">"
-                             "Помилка доступу! <br>"
-                             "Такого користувача немає в БД!</p></body></html>");
+                             "Error! <br>"
+                             "No such user or wrong password!</p></body></html>");
+    //refreshing edits
     ui->password_edit->setText("");
     ui->login_edit->setText("");
 }
 
-
-/*QString LoginWindow::getIP(){
-    return ui->ip_edit->text();
-}
-
-QString LoginWindow::getPort() {
-    return ui->port_edit->text();
-}*/
-
-
-
-
-
-void LoginWindow::paintEvent(QPaintEvent *) {
-    /*QImage img("C:/megan_2.png");
-    QPainter painter(this);
-    painter.drawImage(0,0, img.scaled(this->size()));
-    //ui->name_label->setStyleSheet("color: rgb(255,000,000)");
-    //ui->logwin_label->setStyleSheet("color: rgb(255,000,000)")
-    ui->log_label->setStyleSheet("color: rgb(255,250,250)");
-    ui->pass_label->setStyleSheet("color: rgb(255,250,250)");*/
-  //  ui->ip_label->setStyleSheet("color: rgb(255,250,250)");
-  //  ui->port_label->setStyleSheet("color: rgb(255,250,250)");
-   // ui->type_label->setStyleSheet("color: rgb(255,250,250)");
-   // ui->hr_button->setStyleSheet("color: rgb(255,250,250)");
-   // ui->merch_button->setStyleSheet("color: rgb(255,250,250)");
-    ui->error_label->setStyleSheet("color: rgb(255,250,250)");
-}
+////just for fun
+//void LoginWindow::paintEvent(QPaintEvent *) {
+//    QImage img("C:/megan_2.png");
+//    QPainter painter(this);
+//    painter.drawImage(0,0, img.scaled(this->size()));
+//    ui->log_label->setStyleSheet("color: rgb(255,250,250)");
+//    ui->pass_label->setStyleSheet("color: rgb(255,250,250)");
+//    ui->error_label->setStyleSheet("color: rgb(255,250,250)");
+//}

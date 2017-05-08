@@ -35,7 +35,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     loginwindow.cpp \
-    addcontractor.cpp \
     interviewwindow.cpp \
     moveposotionwindow.cpp \
     addposition.cpp \
@@ -46,7 +45,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     loginwindow.h \
-    addcontractor.h \
     interviewwindow.h \
     moveposotionwindow.h \
     addposition.h \
@@ -57,7 +55,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     loginwindow.ui \
-    addcontractor.ui \
     interviewwindow.ui \
     moveposotionwindow.ui \
     addposition.ui \

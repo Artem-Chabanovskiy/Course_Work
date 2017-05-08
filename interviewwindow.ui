@@ -36,7 +36,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>691</width>
+     <width>1001</width>
      <height>41</height>
     </rect>
    </property>
@@ -75,8 +75,8 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>800</x>
-     <y>10</y>
+     <x>30</x>
+     <y>400</y>
      <width>171</width>
      <height>31</height>
     </rect>
@@ -151,8 +151,8 @@
   <widget class="QComboBox" name="position_cb">
    <property name="geometry">
     <rect>
-     <x>810</x>
-     <y>50</y>
+     <x>310</x>
+     <y>400</y>
      <width>201</width>
      <height>31</height>
     </rect>
@@ -396,8 +396,8 @@
   <widget class="QPushButton" name="add_button">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>480</y>
+     <x>20</x>
+     <y>460</y>
      <width>141</width>
      <height>61</height>
     </rect>
@@ -428,8 +428,8 @@
   <widget class="QPushButton" name="cansel_button_2">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>480</y>
+     <x>560</x>
+     <y>450</y>
      <width>141</width>
      <height>61</height>
     </rect>

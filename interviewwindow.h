@@ -23,17 +23,16 @@ public:
 private slots:
     int doInterview();
 
-    void on_interview_sort_bt_clicked();
-
-    void on_search_contr_to_st_bt_clicked();
-
-    void on_refresh_bt_clicked();
-
-    void on_add_button_clicked();
+    void on_add_contr_clicked();
+    //void on_add_button_clicked();
 
     void on_cansel_button_2_clicked();
 
-    void on_add_contr_clicked();
+    void on_interview_sort_bt_clicked();
+    void on_search_contr_to_st_bt_clicked();
+    void on_refresh_bt_clicked();
+
+
 
 private:
     Ui::interviewwindow *ui;
@@ -44,7 +43,7 @@ protected:
      void paintEvent(QPaintEvent *);
 
 protected slots:
-     int add_contractor();
+     //int add_contractor();
      int add_contractor_and_int_do();
 
 };

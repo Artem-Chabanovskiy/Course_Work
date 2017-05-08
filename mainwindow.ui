@@ -86,7 +86,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="contractors">
      <attribute name="title">
@@ -103,19 +103,6 @@
       </property>
       <property name="text">
        <string>Провести співбесіду</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="add_contr_bt">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>420</y>
-        <width>131</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Додати контрагента</string>
       </property>
      </widget>
      <widget class="QTableWidget" name="contactor_table">
@@ -798,79 +785,6 @@
        <string/>
       </property>
      </widget>
-     <widget class="QTableWidget" name="ful_absence_info_tb">
-      <property name="geometry">
-       <rect>
-        <x>1190</x>
-        <y>20</y>
-        <width>71</width>
-        <height>71</height>
-       </rect>
-      </property>
-      <property name="editTriggers">
-       <set>QAbstractItemView::NoEditTriggers</set>
-      </property>
-      <column>
-       <property name="text">
-        <string>Прізвище</string>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Ім'я</string>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Всього відсутностей</string>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Всього днів пропущено</string>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Середня тривалість</string>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Пропущено робочих днів</string>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>8</pointsize>
-        </font>
-       </property>
-      </column>
-     </widget>
      <widget class="QComboBox" name="full_absence_info_cb">
       <property name="geometry">
        <rect>
@@ -892,32 +806,6 @@
       </property>
       <property name="text">
        <string>Вивести звіт про відсутність</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="full_absence_info_bt">
-      <property name="geometry">
-       <rect>
-        <x>1170</x>
-        <y>150</y>
-        <width>93</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Вивести</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="full_absence_info_hide">
-      <property name="geometry">
-       <rect>
-        <x>1170</x>
-        <y>110</y>
-        <width>91</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Приховати</string>
       </property>
      </widget>
      <widget class="QPushButton" name="report_bt">
@@ -951,34 +839,6 @@
        <string/>
       </property>
      </widget>
-    </widget>
-   </widget>
-   <widget class="QTabWidget" name="manag_w">
-    <property name="geometry">
-     <rect>
-      <x>1221</x>
-      <y>10</y>
-      <width>20</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>2</number>
-    </property>
-    <widget class="QWidget" name="goods">
-     <attribute name="title">
-      <string>Товари</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="sales">
-     <attribute name="title">
-      <string>Продаж</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="purchase">
-     <attribute name="title">
-      <string>Закупка</string>
-     </attribute>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -1020,12 +880,6 @@
      <string>Перезавантажити дані</string>
     </property>
    </widget>
-   <zorder>manag_w</zorder>
-   <zorder>info_label1</zorder>
-   <zorder>info_label2</zorder>
-   <zorder>hr_w</zorder>
-   <zorder>layoutWidget</zorder>
-   <zorder>refresh_bt</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

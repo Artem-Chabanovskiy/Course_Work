@@ -20,22 +20,19 @@ public:
     ~AddContractorToStaff();
 
 private slots:
+
     int pushContrToStaff();
-
-    void on_addcontr_sort_bt_clicked();
-
+    //search and refresh buttons
+    void on_addcontr_sort_bt_clicked();   
     void on_search_contr_to_st_bt_clicked();
-
     void on_refresh_bt_clicked();
-
+    //additional buttons
     void on_add_to_staff_first_bt_clicked();
-
     void on_return_bt_clicked();
 
 private:
     Ui::AddContractorToStaff *ui;
     QSqlDatabase db;
-
     int fillTable(QTableWidget *, QString);
 
 protected:

@@ -22,11 +22,8 @@ public:
 private slots:
     int fireContrFromStaff();
 
-    //void on_cansel_bt_2_clicked();
-
     void on_search_contr_from_st_bt_clicked();
-
-    void on_cansel_bt_2_clicked();
+    void on_refresh_bt_clicked();
 
 private:
     Ui::FireContractorFromStaff *ui;

@@ -24,10 +24,9 @@ public:
 private slots:
     int AddAbsence();
 
+    //sort and refresh buttons
     void on_absence_sort_bt_clicked();
-
     void on_search_contr_to_st_bt_clicked();
-
     void on_refresh_bt_clicked();
 
 private:

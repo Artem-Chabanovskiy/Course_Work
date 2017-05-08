@@ -25,9 +25,7 @@ private slots:
     int salary_input();
 
     void on_position_move_sort_bt_clicked();
-
     void on_search_contr_to_st_bt_clicked();
-
     void on_refresh_bt_clicked();
 
 private:

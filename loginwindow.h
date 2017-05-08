@@ -16,22 +16,19 @@ class LoginWindow : public QDialog {
 
 public:
     explicit LoginWindow(QWidget *parent = 0);
-    //explicit LoginWindow(QWidget *parent = 0, QString El = "");
     ~LoginWindow();
 
     QString getLogin();
     QString getPw();
     QString getIP();
     QString getPort();
+
     void set_error();
 
     Ui::LoginWindow *ui;
 
-protected:
-     void paintEvent(QPaintEvent *);
-
-//private:
-    //Ui::LoginWindow *ui;
+//protected:
+     //void paintEvent(QPaintEvent *);
 
 };
 

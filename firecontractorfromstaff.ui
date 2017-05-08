@@ -137,7 +137,7 @@
     <string>Скасувати операцію</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="cansel_bt_2">
+  <widget class="QPushButton" name="refresh_bt">
    <property name="geometry">
     <rect>
      <x>210</x>
